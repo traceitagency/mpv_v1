@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronDown } from "lucide-react"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { GaugeChart } from "@/components/charts/gauge-chart"
 import { ndviData, insumosAplicados, campanas, parcelas } from "@/lib/mock-data"
@@ -31,29 +31,28 @@ export default function CampanasPage() {
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex items-center gap-2">
-            <span className="hidden sm:block text-sm text-gray-500">Filtro:</span>
-            <div className="relative">
-              <select
-                value={selectedCampana}
-                onChange={(e) => setSelectedCampana(e.target.value)}
-                className="appearance-none rounded-lg border border-gray-200 bg-white pl-3 pr-7 py-1.5 text-xs text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-trace-500/20 cursor-pointer"
-              >
+            <span className="text-xs text-gray-500">Filtro:</span>
+            <Select value={selectedCampana} onValueChange={setSelectedCampana}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
                 {campanas.map((c) => (
-                  <option key={c.id} value={c.id}>{c.nombre}</option>
+                  <SelectItem key={c.id} value={c.id}>{c.nombre}</SelectItem>
                 ))}
-              </select>
-              <ChevronDown size={12} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400" />
-            </div>
+              </SelectContent>
+            </Select>
           </div>
-          <div className="relative max-w-[150px]">
-            <select className="w-full appearance-none rounded-lg border border-gray-200 bg-white pl-3 pr-7 py-1.5 text-xs text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-trace-500/20 cursor-pointer">
-              <option value="">Todas las Parcelas</option>
+          <Select>
+            <SelectTrigger className="max-w-[150px]">
+              <SelectValue placeholder="Todas las Parcelas" />
+            </SelectTrigger>
+            <SelectContent>
               {parcelas.map((p) => (
-                <option key={p.id} value={p.id}>{p.nombre}</option>
+                <SelectItem key={p.id} value={p.id}>{p.nombre}</SelectItem>
               ))}
-            </select>
-            <ChevronDown size={12} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400" />
-          </div>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 

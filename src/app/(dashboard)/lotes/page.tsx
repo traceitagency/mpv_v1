@@ -4,7 +4,8 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { lotes, campanas, parcelas } from "@/lib/mock-data"
 import { formatDate, formatNumber } from "@/lib/utils"
-import { CheckCircle2, Package, QrCode, Download, ChevronDown } from "lucide-react"
+import { CheckCircle2, Package, QrCode, Download } from "lucide-react"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, Cell, LabelList } from "recharts"
 
 export default function LotesPage() {
@@ -35,23 +36,26 @@ export default function LotesPage() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <div className="relative">
-            <select className="appearance-none rounded-lg border border-gray-200 bg-white pl-3 pr-7 py-1.5 text-xs text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-trace-300 cursor-pointer">
+          <Select defaultValue={campanas[0]?.id}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
               {campanas.map((c) => (
-                <option key={c.id} value={c.id}>{c.nombre}</option>
+                <SelectItem key={c.id} value={c.id}>{c.nombre}</SelectItem>
               ))}
-            </select>
-            <ChevronDown size={12} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400" />
-          </div>
-          <div className="relative max-w-[150px]">
-            <select className="w-full appearance-none rounded-lg border border-gray-200 bg-white pl-3 pr-7 py-1.5 text-xs text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-trace-300 cursor-pointer">
-              <option value="">Todas las Parcelas</option>
+            </SelectContent>
+          </Select>
+          <Select>
+            <SelectTrigger className="max-w-[150px]">
+              <SelectValue placeholder="Todas las Parcelas" />
+            </SelectTrigger>
+            <SelectContent>
               {parcelas.map((p) => (
-                <option key={p.id} value={p.id}>{p.nombre}</option>
+                <SelectItem key={p.id} value={p.id}>{p.nombre}</SelectItem>
               ))}
-            </select>
-            <ChevronDown size={12} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400" />
-          </div>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
