@@ -1,0 +1,61 @@
+# ===== Dependencies =====
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# ===== Next.js =====
+/.next/
+/out/
+next-env.d.ts
+
+# ===== Build output =====
+/build
+/dist
+
+# ===== Testing =====
+/coverage
+
+# ===== Environment variables =====
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# ===== Logs =====
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# ===== TypeScript =====
+*.tsbuildinfo
+
+# ===== OS — macOS =====
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# ===== OS — Windows =====
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ===== Editor — JetBrains =====
+.idea/
+*.iml
+
+# ===== Editor — Vim/Emacs =====
+*.swp
+*.swo
+*~
+
+# ===== Misc =====
+*.pem
+.vercel
