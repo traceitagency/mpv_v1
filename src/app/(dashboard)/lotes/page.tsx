@@ -1,13 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { lotes, campanas } from "@/lib/mock-data"
 import { formatDate, formatNumber } from "@/lib/utils"
-import {
-  CheckCircle2, Package, QrCode, Download
-} from "lucide-react"
+import { CheckCircle2, Package, QrCode, Download } from "lucide-react"
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, Cell, LabelList } from "recharts"
 
 export default function LotesPage() {
@@ -18,6 +15,13 @@ export default function LotesPage() {
     { tipo: "Riegos", cantidad: selectedLote.eventosVinculados.riegos },
     { tipo: "Podas", cantidad: selectedLote.eventosVinculados.podas },
   ]
+
+  const estadoColor =
+    selectedLote.estadoFitosanitario === "Óptimo"
+      ? "text-emerald-700"
+      : selectedLote.estadoFitosanitario === "Bueno"
+        ? "text-sky-700"
+        : "text-amber-700"
 
   return (
     <div className="space-y-6">
@@ -42,8 +46,28 @@ export default function LotesPage() {
         </div>
       </div>
 
-      {/* Lote selector */}
-      <div className="flex gap-3 overflow-x-auto pb-2">
+      {/* Lote selector — mobile: select nativo / desktop: pills */}
+      <div className="lg:hidden flex flex-col gap-2">
+        <select
+          value={selectedLote.id}
+          onChange={(e) => {
+            const found = lotes.find((l) => l.id === e.target.value)
+            if (found) setSelectedLote(found)
+          }}
+          className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-trace-300"
+        >
+          {lotes.map((l) => (
+            <option key={l.id} value={l.id}>
+              Lote {l.id} — {l.parcelaNombre}
+            </option>
+          ))}
+        </select>
+        <button className="flex items-center justify-center gap-2 rounded-lg border border-dashed border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-400 hover:text-gray-600 hover:border-gray-400 transition-all w-full">
+          + Nuevo Lote
+        </button>
+      </div>
+
+      <div className="hidden lg:flex gap-3">
         {lotes.map((l) => (
           <button
             key={l.id}
@@ -62,147 +86,169 @@ export default function LotesPage() {
         </button>
       </div>
 
-      {/* Lote selected - title */}
+      {/* Lote detail card */}
       <div className="rounded-xl border bg-white p-5">
-        <h2 className="text-lg font-semibold text-gray-900 mb-1">
-          Lote {selectedLote.id}
-        </h2>
-        <p className="text-sm text-gray-500 mb-6">Campaña {selectedLote.campana}</p>
 
-        <div className="grid lg:grid-cols-2 gap-6">
-          {/* Left: Form data */}
-          <div className="space-y-5">
-            <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-              Datos del Lote y Trazabilidad
-            </h3>
-
-            <div>
-              <label className="text-sm font-medium text-gray-500 mb-1.5 block">Parcela</label>
-              <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-900">
-                {selectedLote.parcelaNombre}
-              </div>
-            </div>
-
-            <div>
-              <label className="text-sm font-medium text-gray-500 mb-1.5 block">Fecha de Cosecha</label>
-              <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-900">
-                {formatDate(selectedLote.fechaCosecha)}
-              </div>
-            </div>
-
-            <div>
-              <label className="text-sm font-medium text-gray-500 mb-1.5 block">Método de Recolección</label>
-              <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-900">
-                {selectedLote.metodoRecoleccion}
-              </div>
-            </div>
-
-            <div>
-              <label className="text-sm font-medium text-gray-500 mb-1.5 block">Volumen Estimado (kg)</label>
-              <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-900">
-                {formatNumber(selectedLote.volumenEstimado)}
-              </div>
-            </div>
-
-            {/* Trazabilidad badge */}
-            {selectedLote.trazabilidadCompleta && (
-              <div className="flex items-center gap-3 rounded-xl bg-trace-50 border border-trace-200 p-4">
-                <CheckCircle2 size={28} className="text-trace-600 flex-shrink-0" />
-                <div>
-                  <p className="text-lg font-semibold text-trace-800">Trazabilidad Completa</p>
-                  <p className="text-xs text-trace-600 mt-0.5">Todos los eventos verificados y vinculados</p>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Right: Summary + Certificate */}
-          <div className="space-y-5">
-            <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-              Resumen Histórico y Certificación
-            </h3>
-
-            {/* Eventos vinculados */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Resumen Histórico Vinculado</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="text-xs font-medium text-gray-500 mb-2">Eventos Vinculados</h4>
-                    <ResponsiveContainer width="100%" height={130}>
-                      <BarChart data={eventosChart} margin={{ top: 16, right: 8, left: 8, bottom: 0 }}>
-                        <XAxis dataKey="tipo" tick={{ fontSize: 9 }} stroke="#999" />
-                        <Tooltip contentStyle={{ borderRadius: 8, fontSize: 11 }} />
-                        <Bar dataKey="cantidad" radius={[3, 3, 0, 0]}>
-                          <LabelList dataKey="cantidad" position="top" style={{ fontSize: 10, fill: "#374151", fontWeight: 600 }} />
-                          {eventosChart.map((_, i) => (
-                            <Cell key={i} fill={["#1c611f", "#2d8f2d", "#55b455"][i]} />
-                          ))}
-                        </Bar>
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-medium text-gray-500 mb-2">Insumos Clave (Resumen)</h4>
-                    <table className="w-full text-xs">
-                      <thead>
-                        <tr className="border-b">
-                          <th className="text-left pb-1.5 font-medium text-gray-500">Producto</th>
-                          <th className="text-right pb-1.5 font-medium text-gray-500">Cantidad</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {selectedLote.insumosClaveResumen.map((i) => (
-                          <tr key={i.producto} className="border-b last:border-0">
-                            <td className="py-2 text-gray-700">{i.producto}</td>
-                            <td className="py-2 text-right font-medium text-gray-900">{i.cantidadTotal}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Certificate preview */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Certificado Digital y Exportación</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="rounded-lg border bg-gray-50 p-4">
-                  <p className="text-xs font-medium text-gray-700 mb-3 text-center">
-                    Previsualización del Certificado Digital ({selectedLote.id})
-                  </p>
-                  <div className="flex flex-col xs:flex-row items-start gap-4 sm:flex-row">
-                    {/* QR placeholder */}
-                    <div className="flex-shrink-0 w-20 h-20 rounded-lg bg-white border-2 border-gray-200 flex items-center justify-center">
-                      <QrCode size={40} className="text-gray-600" />
-                    </div>
-                    <div className="text-xs space-y-0.5 text-gray-600">
-                      <p><span className="font-semibold">Certificado Digital</span> ({selectedLote.id})</p>
-                      <p><span className="font-medium">Propietario:</span> {selectedLote.parcelaNombre}</p>
-                      <p><span className="font-medium">Parcela:</span> Parcela</p>
-                      <p><span className="font-medium">Cosecha:</span> {formatDate(selectedLote.fechaCosecha)}</p>
-                      <p><span className="font-medium">Campaña:</span> {selectedLote.campana}</p>
-                      <p><span className="font-medium">Volumen:</span> {formatNumber(selectedLote.volumenEstimado)} kg</p>
-                      <p className="text-[10px] text-gray-400 mt-1">Key ID: {selectedLote.certificadoId}</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Export button */}
-            <Button className="w-full h-12 text-sm font-semibold uppercase tracking-wide">
-              <Download size={16} className="mr-2" />
-              Exportar Lote a Almazara
-            </Button>
-          </div>
+        {/* Card header */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-gray-900">Lote {selectedLote.id}</h2>
+          <p className="text-sm text-gray-500 mt-0.5">Campaña {selectedLote.campana}</p>
         </div>
+
+        {/* 2×2 grid: filas comparten altura automáticamente */}
+        <div className="grid lg:grid-cols-2 gap-x-8 gap-y-5">
+
+          {/* ── [1,1] Datos del Lote ── */}
+          <div className="flex flex-col gap-3">
+            <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest">
+              Datos del Lote
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="col-span-2 sm:col-span-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-3">
+                <p className="text-[11px] text-gray-400 mb-1">Parcela</p>
+                <p className="text-sm font-semibold text-gray-900 truncate">{selectedLote.parcelaNombre}</p>
+              </div>
+              <div className="col-span-2 sm:col-span-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-3">
+                <p className="text-[11px] text-gray-400 mb-1">Fecha de Cosecha</p>
+                <p className="text-sm font-semibold text-gray-900">{formatDate(selectedLote.fechaCosecha)}</p>
+              </div>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-3">
+                <p className="text-[11px] text-gray-400 mb-1">Método de Recolección</p>
+                <p className="text-sm font-semibold text-gray-900">{selectedLote.metodoRecoleccion}</p>
+              </div>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-3">
+                <p className="text-[11px] text-gray-400 mb-1">Volumen Estimado</p>
+                <p className="text-sm font-semibold text-gray-900">{formatNumber(selectedLote.volumenEstimado)} kg</p>
+              </div>
+            </div>
+          </div>
+
+          {/* ── [1,2] Certificado Digital ── */}
+          <div className="flex flex-col gap-3">
+            <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest">
+              Certificado Digital
+            </p>
+            <div className="rounded-xl border border-gray-100 bg-gray-50/60 p-5 flex-1 flex items-center">
+              <div className="flex gap-5 items-center w-full">
+                <div className="flex-shrink-0 w-[80px] h-[80px] rounded-xl bg-white border-2 border-gray-200 flex items-center justify-center shadow-sm">
+                  <QrCode size={62} className="text-gray-500" />
+                </div>
+                <div className="text-xs text-gray-600 flex-1 min-w-0">
+                  <p className="font-semibold text-gray-800 text-sm mb-2">{selectedLote.id} · Campaña {selectedLote.campana}</p>
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-1">
+                    <p><span className="font-medium">Origen:</span> {selectedLote.parcelaNombre}</p>
+                    <p><span className="font-medium">Cosecha:</span> {formatDate(selectedLote.fechaCosecha)}</p>
+                    <p><span className="font-medium">Variedad:</span> {selectedLote.variedad}</p>
+                    <p><span className="font-medium">Volumen:</span> {formatNumber(selectedLote.volumenEstimado)} kg</p>
+                    <p><span className="font-medium">Aceite:</span> {formatNumber(selectedLote.litrosAceite)} L</p>
+                  </div>
+                  <p className="text-[10px] text-gray-400 truncate mt-1.5">Key: {selectedLote.certificadoId}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── Separador de fila ── */}
+          <div className="hidden lg:block lg:col-span-2 border-t border-gray-100" />
+
+          {/* ── [2,1] Producción y Calidad ── */}
+          <div className="flex flex-col gap-3">
+            <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest">
+              Producción y Calidad
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-3">
+                <p className="text-[11px] text-gray-400 mb-1">Variedad</p>
+                <p className="text-sm font-semibold text-gray-900">{selectedLote.variedad}</p>
+              </div>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-3">
+                <p className="text-[11px] text-gray-400 mb-1">Categoría</p>
+                <p className="text-sm font-semibold text-gray-900">{selectedLote.categoriaCalidad}</p>
+              </div>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-3">
+                <p className="text-[11px] text-gray-400 mb-1">Rendimiento Graso</p>
+                <p className="text-sm font-semibold text-gray-900">{selectedLote.rendimientoGraso}</p>
+              </div>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-3">
+                <p className="text-[11px] text-gray-400 mb-1">Acidez Libre</p>
+                <p className="text-sm font-semibold text-gray-900">{selectedLote.acidezLibre}</p>
+              </div>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-3">
+                <p className="text-[11px] text-gray-400 mb-1">Aceite Estimado</p>
+                <p className="text-sm font-semibold text-gray-900">{formatNumber(selectedLote.litrosAceite)} L</p>
+              </div>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-3">
+                <p className="text-[11px] text-gray-400 mb-1">Estado Fitosanitario</p>
+                <p className={`text-sm font-semibold ${estadoColor}`}>{selectedLote.estadoFitosanitario}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* ── [2,2] Actividad Vinculada ── */}
+          <div className="flex flex-col gap-3">
+            <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest">
+              Actividad Vinculada al Lote
+            </p>
+            <div className="rounded-xl border border-gray-100 bg-gray-50/60 p-4 flex-1">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="h-[140px] lg:h-[190px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={eventosChart} margin={{ top: 14, right: 4, left: -10, bottom: -15 }}>
+                    <XAxis dataKey="tipo" tick={{ fontSize: 9 }} stroke="#d1d5db" />
+                    <Tooltip contentStyle={{ borderRadius: 8, fontSize: 11 }} />
+                    <Bar dataKey="cantidad" radius={[3, 3, 0, 0]}>
+                      <LabelList dataKey="cantidad" position="top" style={{ fontSize: 10, fill: "#374151", fontWeight: 600 }} />
+                      {eventosChart.map((_, i) => (
+                        <Cell key={i} fill={["#1c611f", "#2d8f2d", "#55b455"][i]} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                </div>
+                <div>
+                  <p className="text-[11px] font-medium text-gray-400 uppercase tracking-wide mb-2">Insumos Clave</p>
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="border-b border-gray-200">
+                        <th className="text-left pb-1.5 font-medium text-gray-400">Producto</th>
+                        <th className="text-right pb-1.5 font-medium text-gray-400">Cant.</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {selectedLote.insumosClaveResumen.map((item) => (
+                        <tr key={item.producto} className="border-b border-gray-100 last:border-0">
+                          <td className="py-1.5 text-gray-700 truncate max-w-[80px]">{item.producto}</td>
+                          <td className="py-1.5 text-right font-semibold text-gray-900">{item.cantidadTotal}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* ── Footer: Trazabilidad + Exportar ── */}
+        <div className="mt-6 border-t border-gray-100 pt-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          {selectedLote.trazabilidadCompleta && (
+            <div className="flex items-center gap-3 flex-1">
+              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-trace-50">
+                <CheckCircle2 size={18} className="text-trace-600" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-trace-800">Trazabilidad Completa</p>
+                <p className="text-xs text-trace-500 mt-0.5">Todos los eventos verificados y vinculados al lote</p>
+              </div>
+            </div>
+          )}
+          <Button className="w-full sm:w-auto h-11 px-8 text-sm font-semibold uppercase tracking-wide flex-shrink-0">
+            <Download size={16} className="mr-2" />
+            Exportar Lote a Almazara
+          </Button>
+        </div>
+
       </div>
     </div>
   )

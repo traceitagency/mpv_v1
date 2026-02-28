@@ -2,7 +2,11 @@
 
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
-import { Bell, HelpCircle, AlertTriangle, CheckCircle, Info, X, Menu } from "lucide-react"
+import {
+  Bell, HelpCircle, AlertTriangle, CheckCircle, Info, X, Menu,
+  Home, LayoutGrid, Edit3, FileText, Package, BarChart3, User,
+  BookOpen, MessageCircle, ExternalLink,
+} from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useSidebar } from "@/lib/sidebar-context"
@@ -63,24 +67,81 @@ const typeConfig = {
   },
 }
 
+const helpSections = [
+  {
+    icon: Home,
+    color: "text-trace-600",
+    bg: "bg-trace-50",
+    title: "Inicio",
+    desc: "Visión global de tu explotación: parcelas activas, actividades recientes, lotes y producción acumulada de la campaña en curso.",
+  },
+  {
+    icon: LayoutGrid,
+    color: "text-emerald-600",
+    bg: "bg-emerald-50",
+    title: "Parcelas",
+    desc: "Identidad digital de cada parcela: historial agronómico, línea temporal de eventos, indicadores NDVI y evolución productiva interanual.",
+  },
+  {
+    icon: Edit3,
+    color: "text-violet-600",
+    bg: "bg-violet-50",
+    title: "Actividades",
+    desc: "Registra tratamientos fitosanitarios, riegos, podas y fertilizaciones. Cada registro queda vinculado a una parcela y campaña.",
+  },
+  {
+    icon: FileText,
+    color: "text-amber-600",
+    bg: "bg-amber-50",
+    title: "Campañas",
+    desc: "Sigue la evolución climática, el NDVI y el rendimiento estimado por campaña oleícola. Filtra por año para comparar datos históricos.",
+  },
+  {
+    icon: Package,
+    color: "text-sky-600",
+    bg: "bg-sky-50",
+    title: "Lotes",
+    desc: "Genera lotes de aceite con trazabilidad completa. Cada lote incluye origen, variedad, fecha de cosecha y certificación QR.",
+  },
+  {
+    icon: BarChart3,
+    color: "text-rose-600",
+    bg: "bg-rose-50",
+    title: "Almazara",
+    desc: "Panel para la almazara cooperativa: recepción por agricultor, rendimiento graso, predicción de volumen y distribución geográfica.",
+  },
+  {
+    icon: User,
+    color: "text-gray-600",
+    bg: "bg-gray-100",
+    title: "Mi Perfil",
+    desc: "Gestiona tus datos personales, tu explotación y las credenciales de acceso. Aquí también encontrarás el resumen de tu cuenta.",
+  },
+]
+
 export function TopBar() {
   const [notifOpen, setNotifOpen] = useState(false)
+  const [helpOpen, setHelpOpen] = useState(false)
   const [notifs, setNotifs] = useState(notifications)
   const panelRef = useRef<HTMLDivElement>(null)
+  const helpRef = useRef<HTMLDivElement>(null)
   const { toggleMobile } = useSidebar()
 
   const unreadCount = notifs.filter((n) => !n.read).length
 
   useEffect(() => {
-    if (!notifOpen) return
+    if (!notifOpen && !helpOpen) return
     function handleOutside(e: MouseEvent) {
-      if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
+      if (notifOpen && panelRef.current && !panelRef.current.contains(e.target as Node)) {
         setNotifOpen(false)
+      }
+      if (helpOpen && helpRef.current && !helpRef.current.contains(e.target as Node)) {
+        setHelpOpen(false)
       }
     }
     document.addEventListener("mousedown", handleOutside)
     return () => document.removeEventListener("mousedown", handleOutside)
-  }, [notifOpen])
+  }, [notifOpen, helpOpen])
 
   function markAllRead() {
     setNotifs((prev) => prev.map((n) => ({ ...n, read: true })))
@@ -100,16 +161,92 @@ export function TopBar() {
         <Menu size={20} />
       </button>
 
-      {/* Push right-side actions to the end */}
       <div className="flex flex-1 items-center justify-end gap-3">
-        <button className="rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors">
-          <HelpCircle size={20} />
-        </button>
+
+        {/* Help button + panel */}
+        <div className="relative" ref={helpRef}>
+          <button
+            onClick={() => { setHelpOpen((o) => !o); setNotifOpen(false) }}
+            className={cn(
+              "rounded-full p-2 transition-colors",
+              helpOpen
+                ? "bg-gray-100 text-gray-600"
+                : "text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+            )}
+          >
+            <HelpCircle size={20} />
+          </button>
+
+          <AnimatePresence>
+            {helpOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -6, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -6, scale: 0.97 }}
+                transition={{ duration: 0.15, ease: "easeOut" }}
+                className="fixed left-4 right-4 top-[4.5rem] sm:absolute sm:left-auto sm:right-0 sm:top-full sm:mt-2 sm:w-[340px] rounded-xl border border-gray-100 bg-white shadow-2xl z-50 overflow-hidden"
+              >
+                {/* Header */}
+                <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                  <div className="flex items-center gap-2">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-md bg-trace-50">
+                      <BookOpen size={13} className="text-trace-600" />
+                    </div>
+                    <span className="text-sm font-semibold text-gray-900">Centro de Ayuda</span>
+                  </div>
+                  <button
+                    onClick={() => setHelpOpen(false)}
+                    className="rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+
+                {/* Intro */}
+                <div className="px-4 py-3 bg-trace-50/40 border-b border-gray-100">
+                  <p className="text-xs text-gray-600 leading-relaxed">
+                    <span className="font-semibold text-trace-700">TRACE IT</span> es tu plataforma de trazabilidad oleícola. Gestiona parcelas, registra actividades y genera lotes con certificación digital completa.
+                  </p>
+                </div>
+
+                {/* Modules */}
+                <div className="max-h-[360px] overflow-y-auto divide-y divide-gray-50">
+                  {helpSections.map((s) => {
+                    const Icon = s.icon
+                    return (
+                      <div key={s.title} className="flex gap-3 px-4 py-3 hover:bg-gray-50 transition-colors">
+                        <div className={cn("flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg mt-0.5", s.bg)}>
+                          <Icon size={14} className={s.color} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-900">{s.title}</p>
+                          <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{s.desc}</p>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+
+                {/* Footer */}
+                <div className="border-t border-gray-100 px-4 py-3 flex items-center justify-between gap-3">
+                  <button className="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors">
+                    <MessageCircle size={13} />
+                    Contactar soporte
+                  </button>
+                  <button className="flex items-center gap-1 text-xs font-medium text-trace-600 hover:text-trace-700 transition-colors">
+                    Documentación completa
+                    <ExternalLink size={11} />
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* Bell button + dropdown */}
         <div className="relative" ref={panelRef}>
           <button
-            onClick={() => setNotifOpen((o) => !o)}
+            onClick={() => { setNotifOpen((o) => !o); setHelpOpen(false) }}
             className={cn(
               "relative rounded-full p-2 transition-colors",
               notifOpen
@@ -175,21 +312,11 @@ export function TopBar() {
                           n.read ? "bg-white hover:bg-gray-50" : "bg-gray-50/70 hover:bg-gray-50"
                         )}
                       >
-                        <div
-                          className={cn(
-                            "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full",
-                            cfg.bg
-                          )}
-                        >
+                        <div className={cn("flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full", cfg.bg)}>
                           <Icon size={14} className={cfg.iconColor} />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p
-                            className={cn(
-                              "text-sm leading-snug",
-                              n.read ? "font-normal text-gray-500" : "font-medium text-gray-900"
-                            )}
-                          >
+                          <p className={cn("text-sm leading-snug", n.read ? "font-normal text-gray-500" : "font-medium text-gray-900")}>
                             {n.title}
                           </p>
                           <p className="mt-0.5 truncate text-xs text-gray-400">{n.desc}</p>

@@ -67,6 +67,7 @@ export const campanas = [
 
 // Eventos oleícolas por parcela
 export const eventosAgricolas = [
+  // P-001 · Picual · 5 ha · Lantejuela, Sevilla (plantación 2015)
   { id: "E-001", parcelaId: "P-001", tipo: "Siembra", fecha: "2015-03-15", icono: "seedling" },
   { id: "E-002", parcelaId: "P-001", tipo: "Poda", fecha: "2023-01-20", icono: "scissors" },
   { id: "E-003", parcelaId: "P-001", tipo: "Tratamiento Fitosanitario", fecha: "2024-01-15", icono: "shield" },
@@ -76,6 +77,45 @@ export const eventosAgricolas = [
   { id: "E-007", parcelaId: "P-001", tipo: "Riego", fecha: "2025-04-05", icono: "droplet" },
   { id: "E-008", parcelaId: "P-001", tipo: "Poda", fecha: "2026-01-10", icono: "scissors" },
   { id: "E-009", parcelaId: "P-001", tipo: "Tratamiento Fitosanitario", fecha: "2026-02-25", icono: "shield" },
+
+  // P-002 · Hojiblanca · 8,2 ha · Écija, Sevilla (plantación 2010)
+  { id: "E-010", parcelaId: "P-002", tipo: "Siembra", fecha: "2010-04-10", icono: "seedling" },
+  { id: "E-011", parcelaId: "P-002", tipo: "Poda", fecha: "2021-02-05", icono: "scissors" },
+  { id: "E-012", parcelaId: "P-002", tipo: "Tratamiento Fitosanitario", fecha: "2022-09-12", icono: "shield" },
+  { id: "E-013", parcelaId: "P-002", tipo: "Cosecha", fecha: "2022-11-18", icono: "truck" },
+  { id: "E-014", parcelaId: "P-002", tipo: "Riego", fecha: "2023-06-20", icono: "droplet" },
+  { id: "E-015", parcelaId: "P-002", tipo: "Tratamiento Fitosanitario", fecha: "2023-08-05", icono: "shield" },
+  { id: "E-016", parcelaId: "P-002", tipo: "Cosecha", fecha: "2023-12-01", icono: "truck" },
+  { id: "E-017", parcelaId: "P-002", tipo: "Poda", fecha: "2024-02-14", icono: "scissors" },
+  { id: "E-018", parcelaId: "P-002", tipo: "Riego", fecha: "2025-05-18", icono: "droplet" },
+  { id: "E-019", parcelaId: "P-002", tipo: "Tratamiento Fitosanitario", fecha: "2026-01-30", icono: "shield" },
+
+  // P-003 · Arbequina · 3,5 ha · Martos, Jaén (plantación 2018)
+  { id: "E-020", parcelaId: "P-003", tipo: "Siembra", fecha: "2018-03-22", icono: "seedling" },
+  { id: "E-021", parcelaId: "P-003", tipo: "Riego", fecha: "2020-07-14", icono: "droplet" },
+  { id: "E-022", parcelaId: "P-003", tipo: "Poda", fecha: "2021-01-28", icono: "scissors" },
+  { id: "E-023", parcelaId: "P-003", tipo: "Tratamiento Fitosanitario", fecha: "2022-03-08", icono: "shield" },
+  { id: "E-024", parcelaId: "P-003", tipo: "Riego", fecha: "2023-05-11", icono: "droplet" },
+  { id: "E-025", parcelaId: "P-003", tipo: "Poda", fecha: "2023-12-20", icono: "scissors" },
+  { id: "E-026", parcelaId: "P-003", tipo: "Cosecha", fecha: "2024-10-28", icono: "truck" },
+  { id: "E-027", parcelaId: "P-003", tipo: "Tratamiento Fitosanitario", fecha: "2025-03-15", icono: "shield" },
+  { id: "E-028", parcelaId: "P-003", tipo: "Poda", fecha: "2026-01-22", icono: "scissors" },
+
+  // P-004 · Picudo · 12 ha · Baena, Córdoba (plantación 2008)
+  { id: "E-029", parcelaId: "P-004", tipo: "Siembra", fecha: "2008-02-18", icono: "seedling" },
+  { id: "E-030", parcelaId: "P-004", tipo: "Tratamiento Fitosanitario", fecha: "2019-04-10", icono: "shield" },
+  { id: "E-031", parcelaId: "P-004", tipo: "Cosecha", fecha: "2019-11-25", icono: "truck" },
+  { id: "E-032", parcelaId: "P-004", tipo: "Poda", fecha: "2020-01-15", icono: "scissors" },
+  { id: "E-033", parcelaId: "P-004", tipo: "Riego", fecha: "2021-06-08", icono: "droplet" },
+  { id: "E-034", parcelaId: "P-004", tipo: "Cosecha", fecha: "2021-12-02", icono: "truck" },
+  { id: "E-035", parcelaId: "P-004", tipo: "Tratamiento Fitosanitario", fecha: "2022-02-20", icono: "shield" },
+  { id: "E-036", parcelaId: "P-004", tipo: "Poda", fecha: "2022-12-05", icono: "scissors" },
+  { id: "E-037", parcelaId: "P-004", tipo: "Riego", fecha: "2023-07-19", icono: "droplet" },
+  { id: "E-038", parcelaId: "P-004", tipo: "Cosecha", fecha: "2023-11-30", icono: "truck" },
+  { id: "E-039", parcelaId: "P-004", tipo: "Tratamiento Fitosanitario", fecha: "2024-03-07", icono: "shield" },
+  { id: "E-040", parcelaId: "P-004", tipo: "Poda", fecha: "2025-01-12", icono: "scissors" },
+  { id: "E-041", parcelaId: "P-004", tipo: "Cosecha", fecha: "2025-11-28", icono: "truck" },
+  { id: "E-042", parcelaId: "P-004", tipo: "Riego", fecha: "2026-02-10", icono: "droplet" },
 ]
 
 // Actividades registradas
@@ -192,13 +232,43 @@ export const resumenCampanas = [
     campana: "2024",
     produccion: "4.500 kg",
     rendimientoGraso: "22%",
+    aceiteObtenido: "990 L",
     beneficioEstimado: "5.400 €",
   },
   {
     campana: "2023",
     produccion: "4.200 kg",
     rendimientoGraso: "21%",
+    aceiteObtenido: "882 L",
     beneficioEstimado: "4.830 €",
+  },
+  {
+    campana: "2022",
+    produccion: "3.800 kg",
+    rendimientoGraso: "20%",
+    aceiteObtenido: "760 L",
+    beneficioEstimado: "4.180 €",
+  },
+  {
+    campana: "2021",
+    produccion: "3.500 kg",
+    rendimientoGraso: "19%",
+    aceiteObtenido: "665 L",
+    beneficioEstimado: "3.850 €",
+  },
+  {
+    campana: "2020",
+    produccion: "4.100 kg",
+    rendimientoGraso: "21%",
+    aceiteObtenido: "861 L",
+    beneficioEstimado: "4.510 €",
+  },
+  {
+    campana: "2019",
+    produccion: "3.200 kg",
+    rendimientoGraso: "18%",
+    aceiteObtenido: "576 L",
+    beneficioEstimado: "3.520 €",
   },
 ]
 
@@ -235,6 +305,15 @@ export const lotes = [
     trazabilidadCompleta: true,
     campana: "2026",
     certificadoId: "53000f06a66a3a5e7b8eb89...",
+    variedad: "Picual",
+    categoriaCalidad: "Virgen Extra",
+    rendimientoGraso: "22,5%",
+    acidezLibre: "0,18 g/100g",
+    litrosAceite: 945,
+    scoreCalidad: 94,
+    estadoFitosanitario: "Óptimo",
+    agricultorNombre: "Antonio López",
+    municipio: "Jaén, Jaén",
     eventosVinculados: {
       tratamientos: 4,
       riegos: 2,
@@ -255,6 +334,15 @@ export const lotes = [
     trazabilidadCompleta: true,
     campana: "2026",
     certificadoId: "67a00b12c88d4f6a9c1ef12...",
+    variedad: "Hojiblanca",
+    categoriaCalidad: "Virgen Extra",
+    rendimientoGraso: "19,8%",
+    acidezLibre: "0,24 g/100g",
+    litrosAceite: 1782,
+    scoreCalidad: 88,
+    estadoFitosanitario: "Bueno",
+    agricultorNombre: "Antonio López",
+    municipio: "Écija, Sevilla",
     eventosVinculados: {
       tratamientos: 3,
       riegos: 4,
