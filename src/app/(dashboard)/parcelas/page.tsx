@@ -37,8 +37,21 @@ export default function ParcelasPage() {
         </div>
       </div>
 
-      {/* Parcela selector */}
-      <div className="flex gap-3 overflow-x-auto pb-2">
+      {/* Parcela selector — select on mobile, pills on sm+ */}
+      <select
+        className="sm:hidden w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-trace-500/20"
+        value={selectedParcela.id}
+        onChange={(e) => {
+          const found = parcelas.find((p) => p.id === e.target.value)
+          if (found) setSelectedParcela(found)
+        }}
+      >
+        {parcelas.map((p) => (
+          <option key={p.id} value={p.id}>{p.nombre}</option>
+        ))}
+      </select>
+
+      <div className="hidden sm:flex gap-3 overflow-x-auto pb-2">
         {parcelas.map((p) => (
           <button
             key={p.id}
@@ -55,23 +68,21 @@ export default function ParcelasPage() {
       </div>
 
       {/* Parcela Identity */}
-      <div className="rounded-xl border bg-white p-5">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">
-          Identidad Digital de Parcela - {selectedParcela.nombre}
+      <div className="rounded-xl border bg-white p-4 sm:p-5">
+        <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 truncate">
+          Identidad Digital · {selectedParcela.nombre}
         </h2>
 
-        <div className="grid lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left: Info + Map */}
           <div className="space-y-4">
             {/* Score */}
             <Card className="border-trace-100 bg-trace-50/30">
               <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-gray-700">Score de Calidad de Información</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Award size={18} className="text-amber-500" />
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                  <span className="text-sm font-medium text-gray-700">Score de Calidad de Información</span>
+                  <div className="flex items-center gap-1.5 flex-shrink-0">
+                    <Award size={16} className="text-amber-500" />
                     <span className="text-sm font-semibold text-trace-700">{selectedParcela.scoreCalidad}% Completado</span>
                   </div>
                 </div>
@@ -80,7 +91,7 @@ export default function ParcelasPage() {
             </Card>
 
             {/* Details */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="rounded-lg border p-3">
                 <p className="text-xs text-gray-400 mb-1">Ubicación</p>
                 <p className="text-sm font-medium text-gray-900">{selectedParcela.ubicacion}</p>
@@ -101,7 +112,7 @@ export default function ParcelasPage() {
             </div>
 
             {/* Map - SVG parcela view */}
-            <div className="rounded-lg border overflow-hidden h-[440px] relative bg-[#d4e7c5]">
+            <div className="rounded-lg border overflow-hidden h-[260px] sm:h-[360px] lg:h-[440px] relative bg-[#d4e7c5]">
               {/* SVG parcela map */}
               <svg viewBox="0 0 500 300" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 {/* Background terrain */}
@@ -192,7 +203,7 @@ export default function ParcelasPage() {
             {/* Event Timeline */}
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base">Línea Temporal de Eventos Agrícolas</CardTitle>
+                <CardTitle className="text-base">Línea Temporal de Eventos Oleícolas</CardTitle>
               </CardHeader>
               <CardContent>
                 <EventTimeline events={parcelaEvents} />

@@ -1,4 +1,4 @@
-# TRACE IT — Plataforma de Trazabilidad Agrícola
+# TRACE IT — Plataforma de Trazabilidad Oleícola
 
 MVP de trazabilidad y gestión digital para el sector oleícola. Permite a agricultores, cooperativas y almazaras digitalizar el ciclo completo del cultivo: del cuaderno de campo al certificado QR en botella.
 

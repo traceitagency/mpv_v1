@@ -44,7 +44,7 @@ export default function ActividadesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-display)' }}>
-            Registro de Actividad Agrícola
+            Registro de Actividad Oleícola
           </h1>
           <p className="text-sm text-gray-500 mt-1">
             Registra tratamientos, riegos, podas y demás actividades de tus parcelas

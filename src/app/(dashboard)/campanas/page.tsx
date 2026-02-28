@@ -19,35 +19,35 @@ export default function CampanasPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-display)' }}>
-            Vista de Campaña Agrícola
+            Vista de Campaña Oleícola
           </h1>
           <p className="text-sm text-gray-500 mt-1">
             Evolución climática, producción y rendimiento por campaña
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2">
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-500">Filtro:</span>
+            <span className="hidden sm:block text-sm text-gray-500">Filtro:</span>
             <select
               value={selectedCampana}
               onChange={(e) => setSelectedCampana(e.target.value)}
-              className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-trace-500/20"
+              className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm focus:outline-none focus:ring-2 focus:ring-trace-500/20"
             >
               {campanas.map((c) => (
                 <option key={c.id} value={c.id}>{c.nombre}</option>
               ))}
             </select>
           </div>
-          <select className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-trace-500/20">
+          <select className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm focus:outline-none focus:ring-2 focus:ring-trace-500/20">
             <option>Todas las Parcelas</option>
           </select>
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left: Evolución y Clima */}
         <div className="space-y-6">
           <div className="rounded-xl border bg-white p-1">

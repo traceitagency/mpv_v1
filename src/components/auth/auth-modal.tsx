@@ -81,7 +81,7 @@ export function AuthModal({ isOpen, onClose, initialMode = "login" }: AuthModalP
           </h2>
           <p className="text-sm text-white/80 mt-1">
             {mode === "login"
-              ? "Accede a tu panel de trazabilidad agrícola"
+              ? "Accede a tu panel de trazabilidad oleícola"
               : "Regístrate y empieza tu prueba gratuita de 30 días"
             }
           </p>

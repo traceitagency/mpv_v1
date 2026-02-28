@@ -21,22 +21,22 @@ export default function LotesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-display)' }}>
-            Generación de Lote Agrícola
+            Generación de Lote Oleícola
           </h1>
           <p className="text-sm text-gray-500 mt-1">
             Crea lotes trazables con certificado digital verificable
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <select className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm">
+        <div className="flex flex-wrap items-center gap-2">
+          <select className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm">
             {campanas.map((c) => (
               <option key={c.id} value={c.id}>{c.nombre}</option>
             ))}
           </select>
-          <select className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm">
+          <select className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm">
             <option>Todas las Parcelas</option>
           </select>
         </div>
@@ -128,7 +128,7 @@ export default function LotesPage() {
                 <CardTitle className="text-sm">Resumen Histórico Vinculado</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <h4 className="text-xs font-medium text-gray-500 mb-2">Eventos Vinculados</h4>
                     <ResponsiveContainer width="100%" height={130}>
@@ -177,7 +177,7 @@ export default function LotesPage() {
                   <p className="text-xs font-medium text-gray-700 mb-3 text-center">
                     Previsualización del Certificado Digital ({selectedLote.id})
                   </p>
-                  <div className="flex items-start gap-4">
+                  <div className="flex flex-col xs:flex-row items-start gap-4 sm:flex-row">
                     {/* QR placeholder */}
                     <div className="flex-shrink-0 w-20 h-20 rounded-lg bg-white border-2 border-gray-200 flex items-center justify-center">
                       <QrCode size={40} className="text-gray-600" />

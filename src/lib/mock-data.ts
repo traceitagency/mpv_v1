@@ -6,7 +6,7 @@
 export const parcelas = [
   {
     id: "P-001",
-    nombre: "Parcela 4.1 - Finca El Olivar",
+    nombre: "Parcela 1 - Finca El Olivar",
     ubicacion: "Lantejuela, Sevilla",
     sigpac: "ES01SE000100041",
     superficie: 5.0,
@@ -19,7 +19,7 @@ export const parcelas = [
   },
   {
     id: "P-002",
-    nombre: "Parcela 4.2 - Los Almendros",
+    nombre: "Parcela 2 - Los Almendros",
     ubicacion: "Écija, Sevilla",
     sigpac: "ES01SE000200012",
     superficie: 8.2,
@@ -32,7 +32,7 @@ export const parcelas = [
   },
   {
     id: "P-003",
-    nombre: "Parcela 4.3 - Cerro Alto",
+    nombre: "Parcela 3 - Cerro Alto",
     ubicacion: "Martos, Jaén",
     sigpac: "ES01JA000300023",
     superficie: 3.5,
@@ -45,7 +45,7 @@ export const parcelas = [
   },
   {
     id: "P-004",
-    nombre: "Parcela 4.4 - Valle del Guadalquivir",
+    nombre: "Parcela 4 - Valle del Guadalquivir",
     ubicacion: "Baena, Córdoba",
     sigpac: "ES01CO000400034",
     superficie: 12.0,
@@ -65,7 +65,7 @@ export const campanas = [
   { id: "C-2026", nombre: "Campaña 2026", estado: "en_curso", year: 2026 },
 ]
 
-// Eventos agrícolas por parcela
+// Eventos oleícolas por parcela
 export const eventosAgricolas = [
   { id: "E-001", parcelaId: "P-001", tipo: "Siembra", fecha: "2015-03-15", icono: "seedling" },
   { id: "E-002", parcelaId: "P-001", tipo: "Poda", fecha: "2023-01-20", icono: "scissors" },
@@ -85,7 +85,7 @@ export const actividades = [
     tipo: "Tratamiento Fitosanitario",
     fecha: "2026-02-25",
     parcelaId: "P-001",
-    parcelaNombre: "Parcela 4.1 - Finca El Olivar",
+    parcelaNombre: "Parcela 1 - Finca El Olivar",
     producto: "Dimetoato 40 EC",
     dosis: 1.5,
     unidad: "L/ha",
@@ -97,7 +97,7 @@ export const actividades = [
     tipo: "Riego",
     fecha: "2026-02-20",
     parcelaId: "P-002",
-    parcelaNombre: "Parcela 4.2 - Los Almendros",
+    parcelaNombre: "Parcela 2 - Los Almendros",
     producto: "Goteo",
     dosis: 50,
     unidad: "m³/ha",
@@ -108,7 +108,7 @@ export const actividades = [
     tipo: "Fertilización",
     fecha: "2026-02-15",
     parcelaId: "P-001",
-    parcelaNombre: "Parcela 4.1 - Finca El Olivar",
+    parcelaNombre: "Parcela 1 - Finca El Olivar",
     producto: "Abono Foliar NPK",
     dosis: 3.0,
     unidad: "kg/ha",
@@ -119,7 +119,7 @@ export const actividades = [
     tipo: "Tratamiento Fitosanitario",
     fecha: "2026-02-10",
     parcelaId: "P-003",
-    parcelaNombre: "Parcela 4.3 - Cerro Alto",
+    parcelaNombre: "Parcela 3 - Cerro Alto",
     producto: "Cobre Oxicloruro",
     dosis: 2.0,
     unidad: "kg/ha",
@@ -131,7 +131,7 @@ export const actividades = [
     tipo: "Poda",
     fecha: "2026-01-20",
     parcelaId: "P-004",
-    parcelaNombre: "Parcela 4.4 - Valle del Guadalquivir",
+    parcelaNombre: "Parcela 4 - Valle del Guadalquivir",
     notas: "Poda de formación y aclareo",
   },
   {
@@ -139,7 +139,7 @@ export const actividades = [
     tipo: "Tratamiento Fitosanitario",
     fecha: "2026-01-15",
     parcelaId: "P-002",
-    parcelaNombre: "Parcela 4.2 - Los Almendros",
+    parcelaNombre: "Parcela 2 - Los Almendros",
     producto: "Dimetoato 40 EC",
     dosis: 1.5,
     unidad: "L/ha",
@@ -228,7 +228,7 @@ export const lotes = [
   {
     id: "T-2026-001",
     parcelaId: "P-001",
-    parcelaNombre: "Parcela 4.1 - Finca El Olivar",
+    parcelaNombre: "Parcela 1 - Finca El Olivar",
     fechaCosecha: "2026-02-25",
     metodoRecoleccion: "Mecánica",
     volumenEstimado: 4200,
@@ -248,7 +248,7 @@ export const lotes = [
   {
     id: "T-2026-002",
     parcelaId: "P-002",
-    parcelaNombre: "Parcela 4.2 - Los Almendros",
+    parcelaNombre: "Parcela 2 - Los Almendros",
     fechaCosecha: "2026-02-28",
     metodoRecoleccion: "Manual",
     volumenEstimado: 9000,

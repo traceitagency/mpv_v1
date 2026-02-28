@@ -146,7 +146,7 @@ export default function LandingPage() {
             <div>
               <motion.div {...fadeUp}>
                 <span className="inline-flex items-center rounded-full bg-trace-50 px-3 py-1 text-xs font-medium text-trace-700 border border-trace-200 mb-8">
-                  <Leaf size={12} className="mr-1.5" /> Plataforma líder en trazabilidad agrícola
+                  <Leaf size={12} className="mr-1.5" /> Plataforma líder en trazabilidad oleícola
                 </span>
               </motion.div>
 
@@ -156,7 +156,7 @@ export default function LandingPage() {
                 {...fadeUp}
                 transition={{ delay: 0.1, duration: 0.6 }}
               >
-                Trazabilidad y Gestión Digital para el Sector Agrícola
+                Trazabilidad y Gestión Digital para el Sector Oleícola
               </motion.h1>
 
               <motion.p

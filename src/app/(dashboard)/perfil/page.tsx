@@ -83,23 +83,25 @@ export default function PerfilPage() {
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-1 border-b">
+      {/* Tabs — segmented control */}
+      <div className="flex gap-1 rounded-xl bg-gray-100 p-1">
         {[
-          { key: "general" as const, label: "Información General", icon: User },
-          { key: "seguridad" as const, label: "Seguridad", icon: Lock },
-          { key: "notificaciones" as const, label: "Notificaciones", icon: Bell },
+          { key: "general" as const, label: "Información General", labelShort: "General", icon: User },
+          { key: "seguridad" as const, label: "Seguridad", labelShort: "Seguridad", icon: Lock },
+          { key: "notificaciones" as const, label: "Notificaciones", labelShort: "Alertas", icon: Bell },
         ].map((tab) => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${activeTab === tab.key
-              ? "border-trace-600 text-trace-700"
-              : "border-transparent text-gray-500 hover:text-gray-700"
-              }`}
+            className={`flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition-all ${
+              activeTab === tab.key
+                ? "bg-white shadow-sm text-trace-700"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
           >
-            <tab.icon size={16} />
-            {tab.label}
+            <tab.icon size={15} className="flex-shrink-0" />
+            <span className="hidden sm:inline">{tab.label}</span>
+            <span className="sm:hidden">{tab.labelShort}</span>
           </button>
         ))}
       </div>
@@ -218,7 +220,7 @@ export default function PerfilPage() {
             <CardTitle>Seguridad de la Cuenta</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="flex items-center justify-between rounded-lg border p-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-lg border p-4">
               <div className="flex items-center gap-3">
                 <Lock size={20} className="text-gray-400" />
                 <div>
@@ -228,7 +230,7 @@ export default function PerfilPage() {
               </div>
               <Button variant="outline" size="sm">Cambiar Contraseña</Button>
             </div>
-            <div className="flex items-center justify-between rounded-lg border p-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-lg border p-4">
               <div className="flex items-center gap-3">
                 <Shield size={20} className="text-gray-400" />
                 <div>
@@ -238,7 +240,7 @@ export default function PerfilPage() {
               </div>
               <Badge variant="default">Desactivado</Badge>
             </div>
-            <div className="flex items-center justify-between rounded-lg border p-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-lg border p-4">
               <div className="flex items-center gap-3">
                 <Globe size={20} className="text-gray-400" />
                 <div>

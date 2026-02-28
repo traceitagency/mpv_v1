@@ -16,6 +16,7 @@ import {
   ChevronLeft,
   ChevronRight,
   User,
+  X,
 } from "lucide-react"
 
 const navItems = [
@@ -34,7 +35,7 @@ const bottomItems = [
 export function Sidebar() {
   const pathname = usePathname()
   const router = useRouter()
-  const { collapsed, toggle } = useSidebar()
+  const { collapsed, toggle, mobileOpen, closeMobile } = useSidebar()
 
   const handleLogout = () => {
     router.push("/")
@@ -43,37 +44,46 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        "fixed left-0 top-0 z-40 flex h-screen flex-col border-r bg-white transition-all duration-300",
-        collapsed ? "w-[68px]" : "w-[210px]"
+        "fixed left-0 top-0 z-50 flex h-screen w-[210px] flex-col border-r bg-white transition-all duration-300",
+        // Mobile: slide in/out
+        mobileOpen ? "translate-x-0" : "-translate-x-full",
+        // Desktop: always visible, width based on collapsed state
+        "lg:translate-x-0",
+        collapsed && "lg:w-[68px]"
       )}
     >
       {/* Logo */}
       <div className="relative">
         <div className={cn(
           "flex h-16 items-center border-b",
-          collapsed ? "justify-center" : "px-4"
+          collapsed ? "lg:justify-center px-4 lg:px-0" : "px-4"
         )}>
-          <Link href="/overview" className={cn("flex items-center gap-1.5", !collapsed && "overflow-hidden")}>
+          <Link href="/overview" onClick={closeMobile} className="flex items-center gap-1.5 overflow-hidden">
             <Image
               src="/logo.png"
               alt="TRACE IT"
-              width={collapsed ? 44 : 32}
-              height={collapsed ? 44 : 32}
-              className={cn("object-contain flex-shrink-0", collapsed ? "w-10 h-10" : "w-10 h-10")}
+              width={32}
+              height={32}
+              className="w-9 h-9 object-contain flex-shrink-0"
             />
-            {!collapsed && (
-              <div className="flex items-baseline gap-0.5">
-                <span className="text-lg font-bold tracking-tight text-gray-900">TRACE</span>
-                <span className="text-lg font-bold tracking-tight text-trace-700">IT</span>
-              </div>
-            )}
+            <div className={cn("flex items-baseline gap-0.5", collapsed && "lg:hidden")}>
+              <span className="text-lg font-bold tracking-tight text-gray-900">TRACE</span>
+              <span className="text-lg font-bold tracking-tight text-trace-700">IT</span>
+            </div>
           </Link>
+          {/* Mobile close button */}
+          <button
+            onClick={closeMobile}
+            className="ml-auto flex h-7 w-7 items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors lg:hidden"
+          >
+            <X size={16} />
+          </button>
         </div>
-        {/* Toggle button sits on the separator line */}
+        {/* Desktop collapse toggle */}
         <button
           onClick={toggle}
           className={cn(
-            "absolute -bottom-3 z-10 flex h-6 w-6 items-center justify-center rounded-full border bg-white text-gray-400 shadow-sm hover:text-gray-600 transition-colors",
+            "absolute -bottom-3 z-10 hidden lg:flex h-6 w-6 items-center justify-center rounded-full border bg-white text-gray-400 shadow-sm hover:text-gray-600 transition-colors",
             collapsed ? "left-1/2 -translate-x-1/2" : "right-4"
           )}
         >
@@ -89,6 +99,7 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={closeMobile}
               title={collapsed ? item.label : undefined}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150",
@@ -98,7 +109,7 @@ export function Sidebar() {
               )}
             >
               <item.icon size={20} className={cn("flex-shrink-0", isActive && "text-trace-600")} />
-              {!collapsed && <span>{item.label}</span>}
+              <span className={cn(collapsed && "lg:hidden")}>{item.label}</span>
             </Link>
           )
         })}
@@ -112,6 +123,7 @@ export function Sidebar() {
             <Link
               key={item.label}
               href={item.href}
+              onClick={closeMobile}
               title={collapsed ? item.label : undefined}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
@@ -121,7 +133,7 @@ export function Sidebar() {
               )}
             >
               <item.icon size={20} className="flex-shrink-0" />
-              {!collapsed && <span>{item.label}</span>}
+              <span className={cn(collapsed && "lg:hidden")}>{item.label}</span>
             </Link>
           )
         })}
@@ -131,7 +143,7 @@ export function Sidebar() {
           className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-black hover:bg-red-50 hover:text-red-600 transition-colors"
         >
           <LogOut size={20} className="flex-shrink-0" />
-          {!collapsed && <span>Cerrar sesión</span>}
+          <span className={cn(collapsed && "lg:hidden")}>Cerrar sesión</span>
         </button>
       </div>
     </aside>

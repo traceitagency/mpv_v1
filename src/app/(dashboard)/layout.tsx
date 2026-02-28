@@ -6,11 +6,21 @@ import { SidebarProvider, useSidebar } from "@/lib/sidebar-context"
 import { cn } from "@/lib/utils"
 
 function DashboardContent({ children }: { children: React.ReactNode }) {
-  const { collapsed } = useSidebar()
+  const { collapsed, mobileOpen, closeMobile } = useSidebar()
   return (
-    <div className={cn("flex-1 transition-all duration-300", collapsed ? "ml-[68px]" : "ml-[240px]")}>
+    <div className={cn(
+      "flex-1 min-w-0 transition-all duration-300",
+      collapsed ? "lg:ml-[68px]" : "lg:ml-[210px]"
+    )}>
+      {/* Mobile overlay */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/40 lg:hidden"
+          onClick={closeMobile}
+        />
+      )}
       <TopBar />
-      <main className="p-6">{children}</main>
+      <main className="p-4 lg:p-6">{children}</main>
     </div>
   )
 }

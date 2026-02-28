@@ -28,7 +28,7 @@ const trendColors: Record<string, string> = {
 export default function AlmazaraPage() {
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-display)' }}>
             Dashboard de Almazara - Inteligencia Operativa
@@ -38,8 +38,8 @@ export default function AlmazaraPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-500">Filtro:</span>
-          <select className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm">
+          <span className="hidden sm:block text-sm text-gray-500">Filtro:</span>
+          <select className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm">
             {campanas.map((c) => (
               <option key={c.id} value={c.id}>{c.nombre}</option>
             ))}
@@ -47,7 +47,7 @@ export default function AlmazaraPage() {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left column */}
         <div className="space-y-6">
           <div className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
@@ -101,7 +101,7 @@ export default function AlmazaraPage() {
               <CardTitle>Predicción Agregada de Volumen de Campaña (2026)</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-[auto,1fr] gap-6 items-center">
+              <div className="grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-6 items-center">
                 <div className="flex justify-center">
                   <GaugeChart
                     value={150000}
@@ -236,7 +236,7 @@ export default function AlmazaraPage() {
                 <h4 className="text-sm font-semibold text-gray-700 mb-2">Lotes Recientes Recibidos</h4>
                 <div className="space-y-2">
                   {lotesRecientes.map((l) => (
-                    <div key={l.id} className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2 text-xs">
+                    <div key={l.id} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-lg bg-gray-50 px-3 py-2 text-xs">
                       <span className="font-medium text-gray-700">{l.id}</span>
                       <span className="text-gray-500">{l.agricultor}</span>
                       <span className="text-gray-500">{l.variedad}</span>

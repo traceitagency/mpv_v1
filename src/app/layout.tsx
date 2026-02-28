@@ -2,8 +2,8 @@ import type { Metadata } from "next"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Trace IT - Trazabilidad y Gestión Digital Agrícola",
-  description: "Plataforma de trazabilidad, integración y análisis predictivo para el sector oleícola y agrícola",
+  title: "Trace IT - Trazabilidad y Gestión Digital Oleícola",
+  description: "Plataforma de trazabilidad, integración y análisis predictivo para el sector oleícola",
 }
 
 export default function RootLayout({

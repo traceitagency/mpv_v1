@@ -33,7 +33,7 @@ export default function OverviewPage() {
           Panel General
         </h1>
         <p className="text-sm text-gray-500 mt-1">
-          Resumen de tu explotación agrícola · Campaña 2026
+          Resumen de tu explotación oleícola · Campaña 2026
         </p>
       </div>
 
@@ -111,7 +111,7 @@ export default function OverviewPage() {
       </div>
 */}
       {/* Charts Row */}
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Producción acumulada */}
         <Card>
           <CardHeader>
@@ -189,7 +189,7 @@ export default function OverviewPage() {
       </div>
 
       {/* Recent Activity & Lots */}
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
