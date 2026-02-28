@@ -23,6 +23,7 @@ export default function LandingPage() {
   const [authMode, setAuthMode] = useState<"login" | "register">("login")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
   const [form, setForm] = useState({ nombre: "", email: "", tipo: "Demo de la plataforma", mensaje: "" })
 
   const openLogin = () => { setAuthMode("login"); setAuthOpen(true); setMobileMenuOpen(false) }
@@ -788,7 +789,21 @@ export default function LandingPage() {
                   </div>
                 ) : (
                   <form
-                    onSubmit={(e) => { e.preventDefault(); if (form.nombre && form.email) setSubmitted(true) }}
+                    onSubmit={async (e) => {
+                      e.preventDefault()
+                      if (!form.nombre || !form.email) return
+                      setSending(true)
+                      try {
+                        await fetch("https://formspree.io/f/xjgedvop", {
+                          method: "POST",
+                          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                          body: JSON.stringify({ nombre: form.nombre, email: form.email, tipo: form.tipo, mensaje: form.mensaje }),
+                        })
+                        setSubmitted(true)
+                      } finally {
+                        setSending(false)
+                      }
+                    }}
                     className="space-y-4"
                   >
                     <div>
@@ -846,9 +861,9 @@ export default function LandingPage() {
                       />
                     </div>
 
-                    <Button type="submit" className="w-full gap-2">
-                      Enviar mensaje
-                      <ArrowRight size={16} />
+                    <Button type="submit" disabled={sending} className="w-full gap-2">
+                      {sending ? "Enviando..." : "Enviar mensaje"}
+                      {!sending && <ArrowRight size={16} />}
                     </Button>
                     <p className="text-center text-[11px] text-gray-400">Sin spam. Tus datos no se comparten con terceros.</p>
                   </form>
