@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import Link from "next/link"
 import { Bell, HelpCircle, AlertTriangle, CheckCircle, Info, X, Menu } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
@@ -216,13 +217,16 @@ export function TopBar() {
         </div>
 
         {/* User pill */}
-        <div className="ml-2 flex items-center gap-2 rounded-full bg-gray-100 py-1.5 pl-1.5 pr-1.5 sm:pr-3">
+        <Link
+          href="/perfil"
+          className="ml-2 flex items-center gap-2 rounded-full bg-gray-100 py-1.5 pl-1.5 pr-1.5 sm:pr-3 hover:bg-gray-200 transition-colors"
+        >
           <div className="h-8 w-8 rounded-full bg-trace-600 flex items-center justify-center text-white text-sm font-semibold flex-shrink-0">
             AL
           </div>
           <span className="hidden sm:block text-sm font-medium text-gray-700">Antonio López</span>
-        </div>
-      </div>{/* end flex-1 right-side */}
+        </Link>
+      </div>
     </header>
   )
 }

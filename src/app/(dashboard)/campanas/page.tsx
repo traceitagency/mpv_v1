@@ -47,17 +47,17 @@ export default function CampanasPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:items-stretch">
         {/* Left: Evolución y Clima */}
-        <div className="space-y-6">
-          <div className="rounded-xl border bg-white p-1">
+        <div className="h-full">
+          <div className="rounded-xl border bg-white p-1 h-full">
             <div className="px-4 pt-4 pb-2">
               <h2 className="text-base font-semibold text-gray-900">Evolución y Clima (Campaña 2026)</h2>
             </div>
 
             {/* NDVI */}
             <Card className="border-0 shadow-none">
-              <CardHeader className="pb-1 pt-2">
+              <CardHeader className="pb-1 pt-2 mb-2">
                 <CardTitle className="text-sm font-medium text-gray-700">
                   Evolución NDVI (Últimos 10 Meses)
                 </CardTitle>
@@ -68,7 +68,7 @@ export default function CampanasPage() {
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={220}>
-                  <AreaChart data={ndviData}>
+                  <AreaChart data={ndviData} margin={{ top: 5, right: 15, left: 0, bottom: 5 }}>
                     <defs>
                       <linearGradient id="ndviGradCamp" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="#1c611f" stopOpacity={0.12} />
@@ -77,7 +77,7 @@ export default function CampanasPage() {
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                     <XAxis dataKey="mes" tick={{ fontSize: 11 }} stroke="#999" />
-                    <YAxis tick={{ fontSize: 11 }} stroke="#999" label={{ value: 'NDVI', angle: -90, position: 'insideLeft', style: { fontSize: 11 } }} />
+                    <YAxis tick={{ fontSize: 11 }} stroke="#999" width={45} label={{ value: 'NDVI', angle: -90, position: 'insideLeft', style: { fontSize: 11 } }} />
                     <Tooltip contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12 }} />
                     <Area type="monotone" dataKey="valor" stroke="#1c611f" strokeWidth={2} fill="url(#ndviGradCamp)" />
                   </AreaChart>
@@ -87,17 +87,17 @@ export default function CampanasPage() {
 
             {/* Lluvia */}
             <Card className="border-0 shadow-none">
-              <CardHeader className="pb-1 pt-0">
+              <CardHeader className="pb-1 pt-0 mb-2">
                 <CardTitle className="text-sm font-medium text-gray-700">
                   Acumulado de Lluvia (mm) vs Media Histórica
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={200}>
-                  <BarChart data={lluviaChartData} barGap={4}>
+                  <BarChart data={lluviaChartData} barGap={4} margin={{ top: 5, right: 15, left: 0, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                     <XAxis dataKey="periodo" tick={{ fontSize: 11 }} stroke="#999" />
-                    <YAxis tick={{ fontSize: 11 }} stroke="#999" />
+                    <YAxis tick={{ fontSize: 11 }} stroke="#999" width={35} />
                     <Tooltip contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12 }} />
                     <Legend iconSize={10} wrapperStyle={{ fontSize: 11 }} />
                     <Bar dataKey="actual" name="2026" fill="#1c611f" radius={[4, 4, 0, 0]} />
@@ -110,8 +110,8 @@ export default function CampanasPage() {
         </div>
 
         {/* Right: Resumen Producción */}
-        <div className="space-y-6">
-          <div className="rounded-xl border bg-white p-1">
+        <div className="h-full">
+          <div className="rounded-xl border bg-white p-1 h-full">
             <div className="px-4 pt-4 pb-2">
               <h2 className="text-base font-semibold text-gray-900">Resumen de Producción y Rendimiento</h2>
             </div>
@@ -143,7 +143,7 @@ export default function CampanasPage() {
 
             {/* Gauge */}
             <Card className="border-0 shadow-none">
-              <CardHeader className="pb-1 pt-2">
+              <CardHeader className="pb-1 pt-2 mb-1 mt-2">
                 <CardTitle className="text-sm font-medium text-gray-700">
                   Indicador de Rendimiento Estimado (Provisional)
                 </CardTitle>

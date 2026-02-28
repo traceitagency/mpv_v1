@@ -13,7 +13,7 @@ import {
   Shield, Droplets, Scissors, Sprout, Bug
 } from "lucide-react"
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell,
+  BarChart, Bar, XAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, LabelList,
 } from "recharts"
 
 const iconMap: Record<string, any> = {
@@ -176,12 +176,12 @@ export default function ActividadesPage() {
             <CardContent>
               <h4 className="text-sm font-medium text-gray-700 mb-3">Actividades por Tipo</h4>
               <ResponsiveContainer width="100%" height={220}>
-                <BarChart data={actividadesPorTipo}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                <BarChart data={actividadesPorTipo} margin={{ top: 20, right: 10, left: 10, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
                   <XAxis dataKey="tipo" tick={{ fontSize: 10 }} stroke="#999" />
-                  <YAxis tick={{ fontSize: 10 }} stroke="#999" allowDecimals={false} />
                   <Tooltip contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12 }} />
                   <Bar dataKey="cantidad" radius={[4, 4, 0, 0]}>
+                    <LabelList dataKey="cantidad" position="top" style={{ fontSize: 11, fill: "#374151", fontWeight: 600 }} />
                     {actividadesPorTipo.map((_, i) => (
                       <Cell key={i} fill={i === 0 ? "#1c611f" : i === 1 ? "#2d8f2d" : i === 2 ? "#55b455" : "#b9e5b9"} />
                     ))}

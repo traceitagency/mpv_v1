@@ -12,7 +12,7 @@ import {
 } from "lucide-react"
 import {
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  BarChart, Bar,
+  BarChart, Bar, LabelList,
   AreaChart, Area,
 } from "recharts"
 
@@ -112,7 +112,7 @@ export default function ParcelasPage() {
             </div>
 
             {/* Map - SVG parcela view */}
-            <div className="rounded-lg border overflow-hidden h-[260px] sm:h-[360px] lg:h-[440px] relative bg-[#d4e7c5]">
+            <div className="rounded-lg border overflow-hidden h-[360px] sm:h-[360px] lg:h-[447px] relative bg-[#d4e7c5]">
               {/* SVG parcela map */}
               <svg viewBox="0 0 500 300" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 {/* Background terrain */}
@@ -212,7 +212,7 @@ export default function ParcelasPage() {
 
             {/* Health indicators */}
             <Card>
-              <CardHeader className="pb-2">
+              <CardHeader className="pb-2 mb-2">
                 <CardTitle className="text-base">Indicadores de Salud (Últimos 12 Meses)</CardTitle>
                 <div className="flex items-center gap-2 mt-1">
                   <div className="h-2.5 w-2.5 rounded-full bg-trace-500" />
@@ -221,7 +221,7 @@ export default function ParcelasPage() {
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={160}>
-                  <AreaChart data={saludParcela}>
+                  <AreaChart data={saludParcela} margin={{ top: 5, right: 15, left: 0, bottom: 5 }}>
                     <defs>
                       <linearGradient id="ndviGrad" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="#1c611f" stopOpacity={0.15} />
@@ -230,7 +230,7 @@ export default function ParcelasPage() {
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                     <XAxis dataKey="mes" tick={{ fontSize: 10 }} stroke="#999" />
-                    <YAxis tick={{ fontSize: 10 }} stroke="#999" />
+                    <YAxis tick={{ fontSize: 10 }} stroke="#999" width={32} />
                     <Tooltip contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12 }} />
                     <Area type="monotone" dataKey="ndvi" stroke="#1c611f" strokeWidth={2} fill="url(#ndviGrad)" />
                   </AreaChart>
@@ -245,15 +245,16 @@ export default function ParcelasPage() {
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={160}>
-                  <BarChart data={produccionInteranual}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                  <BarChart data={produccionInteranual} margin={{ top: 20, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
                     <XAxis dataKey="year" tick={{ fontSize: 10 }} stroke="#999" />
-                    <YAxis tick={{ fontSize: 10 }} stroke="#999" />
                     <Tooltip
                       contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12 }}
                       formatter={(v: number) => [`${formatNumber(v)} kg`, "Producción"]}
                     />
-                    <Bar dataKey="produccion" fill="#1c611f" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="produccion" fill="#1c611f" radius={[4, 4, 0, 0]}>
+                      <LabelList dataKey="produccion" position="top" formatter={(v: number) => `${formatNumber(v)} kg`} style={{ fontSize: 9, fill: "#374151", fontWeight: 600 }} />
+                    </Bar>
                   </BarChart>
                 </ResponsiveContainer>
               </CardContent>

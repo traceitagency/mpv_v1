@@ -8,7 +8,7 @@ import { formatDate, formatNumber } from "@/lib/utils"
 import {
   CheckCircle2, Package, QrCode, Download
 } from "lucide-react"
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts"
+import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, Cell, LabelList } from "recharts"
 
 export default function LotesPage() {
   const [selectedLote, setSelectedLote] = useState(lotes[0])
@@ -132,11 +132,11 @@ export default function LotesPage() {
                   <div>
                     <h4 className="text-xs font-medium text-gray-500 mb-2">Eventos Vinculados</h4>
                     <ResponsiveContainer width="100%" height={130}>
-                      <BarChart data={eventosChart}>
+                      <BarChart data={eventosChart} margin={{ top: 16, right: 8, left: 8, bottom: 0 }}>
                         <XAxis dataKey="tipo" tick={{ fontSize: 9 }} stroke="#999" />
-                        <YAxis tick={{ fontSize: 9 }} stroke="#999" allowDecimals={false} />
                         <Tooltip contentStyle={{ borderRadius: 8, fontSize: 11 }} />
                         <Bar dataKey="cantidad" radius={[3, 3, 0, 0]}>
+                          <LabelList dataKey="cantidad" position="top" style={{ fontSize: 10, fill: "#374151", fontWeight: 600 }} />
                           {eventosChart.map((_, i) => (
                             <Cell key={i} fill={["#1c611f", "#2d8f2d", "#55b455"][i]} />
                           ))}

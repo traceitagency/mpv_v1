@@ -47,101 +47,58 @@ export default function AlmazaraPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Left column */}
-        <div className="space-y-6">
-          <div className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
-            Ranking y Predicción
-          </div>
-
-          {/* Ranking */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Ranking Dinámico de Agricultores (Top 5)</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {rankingAgricultores.map((a) => {
-                  const TrendIcon = trendIcons[a.tendencia]
-                  return (
-                    <div
-                      key={a.posicion}
-                      className="flex items-center justify-between rounded-lg border p-3 hover:bg-gray-50 transition-colors"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-trace-50 text-xs font-bold text-trace-700">
-                          {a.posicion}
-                        </span>
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">
-                            {a.nombre}
-                            <span className="ml-1.5 text-xs text-gray-400">({a.score.toLocaleString('es-ES')}/10)</span>
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            Vol: {a.volumen}, RG: {a.rendimientoGraso}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className={`text-xs font-medium ${trendColors[a.tendencia]}`}>
-                          {a.variacion}
-                        </span>
-                        <TrendIcon size={16} className={trendColors[a.tendencia]} />
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Prediction */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Predicción Agregada de Volumen de Campaña (2026)</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-6 items-center">
-                <div className="flex justify-center">
-                  <GaugeChart
-                    value={150000}
-                    max={200000}
-                    label="150.000 t"
-                    sublabel="Confianza 90%"
-                    size="md"
-                    color="#1c611f"
-                  />
-                </div>
-                <div>
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">Recepción por Mes</h4>
-                  <ResponsiveContainer width="100%" height={180}>
-                    <BarChart data={recepcionPorMes} barGap={2}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                      <XAxis dataKey="mes" tick={{ fontSize: 11 }} stroke="#999" />
-                      <YAxis tick={{ fontSize: 11 }} stroke="#999" />
-                      <Tooltip
-                        contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12 }}
-                        formatter={(v: number) => [formatNumber(v) + ' t', '']}
-                      />
-                      <Legend iconSize={10} wrapperStyle={{ fontSize: 11 }} />
-                      <Bar dataKey="estimado" name="Estimado" fill="#d1d5db" radius={[3, 3, 0, 0]} />
-                      <Bar dataKey="recibido" name="Recibido" fill="#1c611f" radius={[3, 3, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4">
+        {/* Row 1: Section labels */}
+        <div className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
+          Ranking y Predicción
+        </div>
+        <div className="hidden lg:block text-sm font-semibold text-gray-500 uppercase tracking-wider">
+          Mapa y Comparativas
         </div>
 
-        {/* Right column */}
-        <div className="space-y-6">
-          <div className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
-            Mapa y Comparativas
-          </div>
+        {/* Row 2: Ranking | Distribution — same height via grid row */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Ranking Dinámico de Agricultores (Top 5)</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {rankingAgricultores.map((a) => {
+                const TrendIcon = trendIcons[a.tendencia]
+                return (
+                  <div
+                    key={a.posicion}
+                    className="flex items-center justify-between rounded-lg border p-3 hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-trace-50 text-xs font-bold text-trace-700">
+                        {a.posicion}
+                      </span>
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">
+                          {a.nombre}
+                          <span className="ml-1.5 text-xs text-gray-400">({a.score.toLocaleString('es-ES')}/10)</span>
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Vol: {a.volumen}, RG: {a.rendimientoGraso}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className={`text-xs font-medium ${trendColors[a.tendencia]}`}>
+                        {a.variacion}
+                      </span>
+                      <TrendIcon size={16} className={trendColors[a.tendencia]} />
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </CardContent>
+        </Card>
 
-          {/* Geographic distribution - Andalucía Map */}
-          <Card>
+        {/* Geographic distribution - Andalucía Map */}
+        <Card>
             <CardHeader>
               <CardTitle>Distribución Geográfica de Proveedores y Lotes</CardTitle>
             </CardHeader>
@@ -248,30 +205,66 @@ export default function AlmazaraPage() {
             </CardContent>
           </Card>
 
-          {/* Rendimiento graso comparativa */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Comparativa de Rendimiento Graso Medio (%) entre Campañas</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={220}>
-                <LineChart data={rendimientoGrasoCampanas}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis dataKey="mes" tick={{ fontSize: 11 }} stroke="#999" />
-                  <YAxis tick={{ fontSize: 11 }} stroke="#999" domain={[18, 26]} unit="%" />
-                  <Tooltip
-                    contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12 }}
-                    formatter={(v: number) => [v.toLocaleString('es-ES') + '%', '']}
-                  />
-                  <Legend iconSize={10} wrapperStyle={{ fontSize: 11 }} />
-                  <Line type="monotone" dataKey="c2024" name="2024" stroke="#d1d5db" strokeWidth={2} dot={{ r: 3 }} />
-                  <Line type="monotone" dataKey="c2025" name="2025" stroke="#9ca3af" strokeWidth={2} dot={{ r: 3 }} />
-                  <Line type="monotone" dataKey="c2026" name="2026" stroke="#1c611f" strokeWidth={2.5} dot={{ r: 4 }} />
-                </LineChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-        </div>
+        {/* Row 3: Prediction | Rendimiento */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Predicción Agregada de Volumen de Campaña (2026)</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-6 items-center">
+              <div className="flex justify-center">
+                <GaugeChart
+                  value={150000}
+                  max={200000}
+                  label="150.000 t"
+                  sublabel="Confianza 90%"
+                  size="md"
+                  color="#1c611f"
+                />
+              </div>
+              <div>
+                <h4 className="text-sm font-medium text-gray-700 mb-2">Recepción por Mes</h4>
+                <ResponsiveContainer width="100%" height={180}>
+                  <BarChart data={recepcionPorMes} barGap={2} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <XAxis dataKey="mes" tick={{ fontSize: 11 }} stroke="#999" />
+                    <YAxis tick={{ fontSize: 11 }} stroke="#999" width={40} />
+                    <Tooltip
+                      contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12 }}
+                      formatter={(v: number) => [formatNumber(v) + ' t', '']}
+                    />
+                    <Legend iconSize={10} wrapperStyle={{ fontSize: 11 }} />
+                    <Bar dataKey="estimado" name="Estimado" fill="#d1d5db" radius={[3, 3, 0, 0]} />
+                    <Bar dataKey="recibido" name="Recibido" fill="#1c611f" radius={[3, 3, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Comparativa de Rendimiento Graso Medio (%) entre Campañas</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={220}>
+              <LineChart data={rendimientoGrasoCampanas} margin={{ top: 5, right: 15, left: 0, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                <XAxis dataKey="mes" tick={{ fontSize: 11 }} stroke="#999" />
+                <YAxis tick={{ fontSize: 11 }} stroke="#999" domain={[18, 26]} unit="%" width={35} />
+                <Tooltip
+                  contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12 }}
+                  formatter={(v: number) => [v.toLocaleString('es-ES') + '%', '']}
+                />
+                <Legend iconSize={10} wrapperStyle={{ fontSize: 11 }} />
+                <Line type="monotone" dataKey="c2024" name="2024" stroke="#d1d5db" strokeWidth={2} dot={{ r: 3 }} />
+                <Line type="monotone" dataKey="c2025" name="2025" stroke="#9ca3af" strokeWidth={2} dot={{ r: 3 }} />
+                <Line type="monotone" dataKey="c2026" name="2026" stroke="#1c611f" strokeWidth={2.5} dot={{ r: 4 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
