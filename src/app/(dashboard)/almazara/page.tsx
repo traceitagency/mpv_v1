@@ -1,14 +1,13 @@
 "use client"
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { GaugeChart } from "@/components/charts/gauge-chart"
 import { formatNumber } from "@/lib/utils"
 import {
   rankingAgricultores, recepcionPorMes, rendimientoGrasoCampanas,
-  lotesRecientes, proveedoresGeo, campanas,
+  lotesRecientes, campanas,
 } from "@/lib/mock-data"
-import { TrendingUp, TrendingDown, Minus, MapPin } from "lucide-react"
+import { TrendingUp, TrendingDown, Minus } from "lucide-react"
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line, Legend,

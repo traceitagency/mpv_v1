@@ -10,8 +10,8 @@ interface SidebarContextType {
 
 const SidebarContext = createContext<SidebarContextType>({
   collapsed: false,
-  setCollapsed: () => {},
-  toggle: () => {},
+  setCollapsed: () => { },
+  toggle: () => { },
 })
 
 export function SidebarProvider({ children }: { children: ReactNode }) {

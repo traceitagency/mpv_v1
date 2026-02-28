@@ -2,15 +2,13 @@
 
 import { useState } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { lotes, parcelas, campanas, metodosRecoleccion } from "@/lib/mock-data"
+import { lotes, campanas } from "@/lib/mock-data"
 import { formatDate, formatNumber } from "@/lib/utils"
 import {
-  CheckCircle2, Package, QrCode, Download, ArrowRight,
-  Shield, Droplets, Scissors,
+  CheckCircle2, Package, QrCode, Download
 } from "lucide-react"
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts"
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts"
 
 export default function LotesPage() {
   const [selectedLote, setSelectedLote] = useState(lotes[0])
@@ -50,11 +48,10 @@ export default function LotesPage() {
           <button
             key={l.id}
             onClick={() => setSelectedLote(l)}
-            className={`flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition-all whitespace-nowrap ${
-              selectedLote.id === l.id
-                ? "border-trace-300 bg-trace-50 text-trace-700 shadow-sm"
-                : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
-            }`}
+            className={`flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition-all whitespace-nowrap ${selectedLote.id === l.id
+              ? "border-trace-300 bg-trace-50 text-trace-700 shadow-sm"
+              : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
+              }`}
           >
             <Package size={14} />
             Lote {l.id}

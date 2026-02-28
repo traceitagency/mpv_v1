@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { X, Eye, EyeOff, Leaf, ArrowRight, Check } from "lucide-react"
+import { X, Eye, EyeOff, Leaf, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 

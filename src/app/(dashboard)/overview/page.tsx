@@ -4,10 +4,10 @@ import { StatCard } from "@/components/ui/stat-card"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { overviewStats, actividades, lotes, parcelas } from "@/lib/mock-data"
-import { formatDate, formatNumber, formatCurrency } from "@/lib/utils"
+import { formatDate, formatNumber } from "@/lib/utils"
 import {
-  LayoutGrid, Package, Activity, TrendingUp, TrendingDown, Award,
-  ArrowRight, Calendar, MapPin, Euro, Percent
+  LayoutGrid, Package, Activity, Award,
+  ArrowRight, Calendar, MapPin
 } from "lucide-react"
 import Link from "next/link"
 import {

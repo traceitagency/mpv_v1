@@ -2,17 +2,16 @@
 
 import { useState } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
 import { EventTimeline } from "@/components/ui/event-timeline"
 import { parcelas, eventosAgricolas, saludParcela, produccionInteranual, resumenCampanas } from "@/lib/mock-data"
 import { formatNumber } from "@/lib/utils"
 import {
-  MapPin, Award, TreePine, Calendar, ChevronRight, ExternalLink,
+  MapPin, Award
 } from "lucide-react"
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   BarChart, Bar,
   AreaChart, Area,
 } from "recharts"
@@ -44,11 +43,10 @@ export default function ParcelasPage() {
           <button
             key={p.id}
             onClick={() => setSelectedParcela(p)}
-            className={`flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition-all whitespace-nowrap ${
-              selectedParcela.id === p.id
-                ? "border-trace-300 bg-trace-50 text-trace-700 shadow-sm"
-                : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
-            }`}
+            className={`flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition-all whitespace-nowrap ${selectedParcela.id === p.id
+              ? "border-trace-300 bg-trace-50 text-trace-700 shadow-sm"
+              : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
+              }`}
           >
             <MapPin size={14} />
             {p.nombre}
@@ -103,7 +101,7 @@ export default function ParcelasPage() {
             </div>
 
             {/* Map - SVG parcela view */}
-            <div className="rounded-lg border overflow-hidden h-[280px] relative bg-[#d4e7c5]">
+            <div className="rounded-lg border overflow-hidden h-[440px] relative bg-[#d4e7c5]">
               {/* SVG parcela map */}
               <svg viewBox="0 0 500 300" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 {/* Background terrain */}
@@ -112,7 +110,7 @@ export default function ParcelasPage() {
                     <circle cx="10" cy="10" r="3" fill="#6b8f4e" opacity="0.25" />
                   </pattern>
                   <filter id="shadow">
-                    <feDropShadow dx="0" dy="1" stdDeviation="2" floodOpacity="0.15"/>
+                    <feDropShadow dx="0" dy="1" stdDeviation="2" floodOpacity="0.15" />
                   </filter>
                 </defs>
                 <rect width="500" height="300" fill="#d4e7c5" />
@@ -135,7 +133,7 @@ export default function ParcelasPage() {
                 {/* Olive tree rows */}
                 {[80, 100, 120, 140, 160, 180, 200, 220].map((y) => (
                   <g key={y}>
-                    {Array.from({length: 12}, (_, i) => 100 + i * 24).map((x) => (
+                    {Array.from({ length: 12 }, (_, i) => 100 + i * 24).map((x) => (
                       <circle key={`${x}-${y}`} cx={x} cy={y} r="3.5" fill="#3d6b25" opacity="0.7" />
                     ))}
                   </g>

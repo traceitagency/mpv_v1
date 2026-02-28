@@ -2,12 +2,11 @@
 
 import { useState } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { GaugeChart } from "@/components/charts/gauge-chart"
-import { ndviData, lluviaData, insumosAplicados, campanas } from "@/lib/mock-data"
+import { ndviData, insumosAplicados, campanas } from "@/lib/mock-data"
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  BarChart, Bar, Cell, Legend,
+  BarChart, Bar, Legend,
 } from "recharts"
 
 const lluviaChartData = [

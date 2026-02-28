@@ -12,7 +12,6 @@ import {
   FileText,
   Package,
   BarChart3,
-  Settings,
   LogOut,
   ChevronLeft,
   ChevronRight,
@@ -83,7 +82,7 @@ export function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-1 px-3 py-4">
+      <nav className="flex-1 space-y-1 px-3 py-5">
         {navItems.map((item) => {
           const isActive = pathname === item.href
           return (
