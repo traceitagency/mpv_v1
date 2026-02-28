@@ -4,14 +4,14 @@ import { StatCard } from "@/components/ui/stat-card"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { overviewStats, actividades, lotes, parcelas } from "@/lib/mock-data"
-import { formatDate, formatNumber } from "@/lib/utils"
+import { formatDate, formatNumber, formatCurrency } from "@/lib/utils"
 import {
-  LayoutGrid, FileText, Package, Activity, TrendingUp, Award,
-  ArrowRight, Calendar, MapPin
+  LayoutGrid, Package, Activity, TrendingUp, TrendingDown, Award,
+  ArrowRight, Calendar, MapPin, Euro, Percent
 } from "lucide-react"
 import Link from "next/link"
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   AreaChart, Area,
 } from "recharts"
 
@@ -68,6 +68,48 @@ export default function OverviewPage() {
         />
       </div>
 
+      {/* Financial KPIs */}
+      {/*
+      <div>
+        <div className="flex items-center gap-2 mb-3">
+          <div className="flex items-center justify-center w-6 h-6 rounded-md bg-emerald-50">
+            <Euro size={14} className="text-emerald-600" />
+          </div>
+          <p className="text-sm font-semibold text-gray-700">Resumen Económico · Campaña 2026</p>
+          <span className="text-xs text-gray-400 font-normal">(estimado a feb.)</span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <StatCard
+            title="Ingresos Estimados"
+            value={formatCurrency(overviewStats.ingresosEstimados)}
+            subtitle="Venta de aceite + subproductos"
+            icon={TrendingUp}
+            trend={{ value: "+12% vs campaña 2025", positive: true }}
+          />
+          <StatCard
+            title="Costes de Producción"
+            value={formatCurrency(overviewStats.costesProduccion)}
+            subtitle="Insumos, mano de obra y riego"
+            icon={TrendingDown}
+            trend={{ value: "-3% vs campaña 2025", positive: true }}
+          />
+          <StatCard
+            title="Beneficio Neto Estimado"
+            value={formatCurrency(overviewStats.beneficioNeto)}
+            subtitle="Ingresos menos costes totales"
+            icon={Euro}
+            trend={{ value: "+18% vs campaña 2025", positive: true }}
+          />
+          <StatCard
+            title="Margen de Beneficio"
+            value={`${overviewStats.margenPct.toLocaleString('es-ES')}%`}
+            subtitle="Sobre ingresos estimados"
+            icon={Percent}
+            trend={{ value: "+3,1 pp vs campaña 2025", positive: true }}
+          />
+        </div>
+      </div>
+*/}
       {/* Charts Row */}
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Producción acumulada */}

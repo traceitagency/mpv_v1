@@ -406,6 +406,11 @@ export const overviewStats = {
   scorePromedioCalidad: 91,
   produccionTotal2025: 18500,
   rendimientoGrasoMedio: "21,8%",
+  // Financial — Campaña 2026 (estimados a fecha Feb)
+  ingresosEstimados: 38500,
+  costesProduccion: 14200,
+  beneficioNeto: 24300,
+  margenPct: 63.1,
 }
 
 // User profile data (for user panel)
