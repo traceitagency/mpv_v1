@@ -271,7 +271,7 @@ export default function LandingPage() {
       </section>
 
       {/* ========== FUNCIONALIDADES ========== */}
-      <section id="funcionalidades" className="py-20 bg-gray-50/50">
+      <section id="funcionalidades" className="py-20 bg-trace-50/50">
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center mb-14">
             <h2 className="text-3xl font-bold text-gray-900" style={{ fontFamily: "var(--font-display)" }}>
@@ -482,7 +482,7 @@ export default function LandingPage() {
       </section>
 
       {/* ========== CASOS DE ÉXITO ========== */}
-      <section id="casos" className="py-20 bg-gray-50/50 scroll-mt-16">
+      <section id="casos" className="py-20 bg-trace-50/50 scroll-mt-16">
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center mb-14">
             <h2 className="text-3xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-display)' }}>
@@ -710,7 +710,7 @@ export default function LandingPage() {
       </section>
 
       {/* ========== CONTACTO + CTA ========== */}
-      <section id="contacto" className="py-24 scroll-mt-16 bg-gradient-to-b from-white to-gray-50/60">
+      <section id="contacto" className="py-24 scroll-mt-16 bg-trace-50/50">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
@@ -863,22 +863,27 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="border-t bg-white py-10">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-8">
+          <div className="flex flex-col items-center gap-6 lg:flex-row lg:justify-between">
+            {/* Logo + nav links */}
+            <div className="flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-6 sm:gap-y-2 lg:justify-start">
               <Logo size="sm" />
-              <a href="#funcionalidades" className="text-sm text-gray-500 hover:text-gray-900">Funcionalidades</a>
-              <a href="#planes" className="text-sm text-gray-500 hover:text-gray-900">Planes</a>
-              <a href="#casos" className="text-sm text-gray-500 hover:text-gray-900">Casos de Éxito</a>
-              <a href="#blog" className="text-sm text-gray-500 hover:text-gray-900">Blog</a>
-              <a href="#contacto" className="text-sm text-gray-500 hover:text-gray-900">Contacto</a>
+              <nav className="flex flex-wrap justify-center gap-x-5 gap-y-2 lg:justify-start">
+                <a href="#funcionalidades" className="text-sm text-gray-500 hover:text-gray-900">Funcionalidades</a>
+                <a href="#planes" className="text-sm text-gray-500 hover:text-gray-900">Planes</a>
+                <a href="#casos" className="text-sm text-gray-500 hover:text-gray-900">Casos de Éxito</a>
+                <a href="#blog" className="text-sm text-gray-500 hover:text-gray-900">Blog</a>
+                <a href="#contacto" className="text-sm text-gray-500 hover:text-gray-900">Contacto</a>
+              </nav>
             </div>
+            {/* Social icons */}
             <div className="flex items-center gap-4">
               <a href="#" className="text-gray-400 hover:text-gray-600"><Twitter size={18} /></a>
               <a href="#" className="text-gray-400 hover:text-gray-600"><Facebook size={18} /></a>
               <a href="#" className="text-gray-400 hover:text-gray-600"><Instagram size={18} /></a>
               <a href="#" className="text-gray-400 hover:text-gray-600"><Youtube size={18} /></a>
             </div>
-            <p className="text-sm text-gray-400">© 2026 TRACE IT. Todos los derechos reservados.</p>
+            {/* Copyright */}
+            <p className="text-center text-sm text-gray-400 lg:text-right">© 2026 TRACE IT. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>

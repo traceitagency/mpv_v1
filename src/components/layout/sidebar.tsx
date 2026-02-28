@@ -53,13 +53,13 @@ export function Sidebar() {
           "flex h-16 items-center border-b",
           collapsed ? "justify-center" : "px-4"
         )}>
-          <Link href="/overview" className={cn("flex items-center gap-2.5", !collapsed && "overflow-hidden")}>
+          <Link href="/overview" className={cn("flex items-center gap-1.5", !collapsed && "overflow-hidden")}>
             <Image
               src="/logo.png"
               alt="TRACE IT"
               width={collapsed ? 44 : 32}
               height={collapsed ? 44 : 32}
-              className={cn("object-contain flex-shrink-0", collapsed ? "w-11 h-11" : "w-8 h-8")}
+              className={cn("object-contain flex-shrink-0", collapsed ? "w-10 h-10" : "w-10 h-10")}
             />
             {!collapsed && (
               <div className="flex items-baseline gap-0.5">
