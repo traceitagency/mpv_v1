@@ -4,11 +4,12 @@ import { useState } from "react"
 import { Logo } from "@/components/layout/logo"
 import { Button } from "@/components/ui/button"
 import { AuthModal } from "@/components/auth/auth-modal"
+import { SupportModal } from "@/components/layout/support-modal"
 import {
   Sprout, BarChart3, ArrowRight, CheckCircle2,
   MapPin, Leaf, Factory, QrCode, TrendingUp, Users,
   Twitter, Facebook, Instagram, Youtube, Star, Zap, Crown,
-  ArrowUpRight, Check, Menu, X,
+  ArrowUpRight, Check, Menu, X, Headset,
 } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -22,6 +23,7 @@ export default function LandingPage() {
   const [authOpen, setAuthOpen] = useState(false)
   const [authMode, setAuthMode] = useState<"login" | "register">("login")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [supportOpen, setSupportOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
   const [form, setForm] = useState({ nombre: "", email: "", tipo: "Demo de la plataforma", mensaje: "" })
@@ -37,6 +39,7 @@ export default function LandingPage() {
         onClose={() => setAuthOpen(false)}
         initialMode={authMode}
       />
+      <SupportModal isOpen={supportOpen} onClose={() => setSupportOpen(false)} />
 
       {/* Navigation */}
       <nav className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur-md">
@@ -60,6 +63,13 @@ export default function LandingPage() {
             </a>
           </div>
           <div className="hidden md:flex items-center gap-3">
+            <button
+              onClick={() => setSupportOpen(true)}
+              className="rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
+              title="Contactar soporte"
+            >
+              <Headset size={20} />
+            </button>
             <Button variant="outline" size="sm" onClick={openLogin}>
               Iniciar Sesión
             </Button>

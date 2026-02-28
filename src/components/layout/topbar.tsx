@@ -5,11 +5,12 @@ import Link from "next/link"
 import {
   Bell, HelpCircle, AlertTriangle, CheckCircle, Info, X, Menu,
   Home, LayoutGrid, Edit3, FileText, Package, BarChart3, User,
-  BookOpen, MessageCircle, ExternalLink,
+  BookOpen, MessageCircle, ExternalLink, Headset,
 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useSidebar } from "@/lib/sidebar-context"
+import { SupportModal } from "@/components/layout/support-modal"
 
 const notifications = [
   {
@@ -122,6 +123,7 @@ const helpSections = [
 export function TopBar() {
   const [notifOpen, setNotifOpen] = useState(false)
   const [helpOpen, setHelpOpen] = useState(false)
+  const [supportOpen, setSupportOpen] = useState(false)
   const [notifs, setNotifs] = useState(notifications)
   const panelRef = useRef<HTMLDivElement>(null)
   const helpRef = useRef<HTMLDivElement>(null)
@@ -229,7 +231,10 @@ export function TopBar() {
 
                 {/* Footer */}
                 <div className="border-t border-gray-100 px-4 py-3 flex items-center justify-between gap-3">
-                  <button className="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors">
+                  <button
+                    onClick={() => { setHelpOpen(false); setSupportOpen(true) }}
+                    className="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors"
+                  >
                     <MessageCircle size={13} />
                     Contactar soporte
                   </button>
@@ -242,6 +247,15 @@ export function TopBar() {
             )}
           </AnimatePresence>
         </div>
+
+        {/* Support button */}
+        <button
+          onClick={() => { setSupportOpen(true); setHelpOpen(false); setNotifOpen(false) }}
+          className="rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
+          title="Contactar soporte"
+        >
+          <Headset size={20} />
+        </button>
 
         {/* Bell button + dropdown */}
         <div className="relative" ref={panelRef}>
@@ -354,6 +368,8 @@ export function TopBar() {
           <span className="hidden sm:block text-sm font-medium text-gray-700">Antonio López</span>
         </Link>
       </div>
+
+      <SupportModal isOpen={supportOpen} onClose={() => setSupportOpen(false)} />
     </header>
   )
 }
