@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { lotes, campanas } from "@/lib/mock-data"
+import { lotes, campanas, parcelas } from "@/lib/mock-data"
 import { formatDate, formatNumber } from "@/lib/utils"
-import { CheckCircle2, Package, QrCode, Download } from "lucide-react"
+import { CheckCircle2, Package, QrCode, Download, ChevronDown } from "lucide-react"
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, Cell, LabelList } from "recharts"
 
 export default function LotesPage() {
@@ -35,14 +35,23 @@ export default function LotesPage() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <select className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm">
-            {campanas.map((c) => (
-              <option key={c.id} value={c.id}>{c.nombre}</option>
-            ))}
-          </select>
-          <select className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm">
-            <option>Todas las Parcelas</option>
-          </select>
+          <div className="relative">
+            <select className="appearance-none rounded-lg border border-gray-200 bg-white pl-3 pr-7 py-1.5 text-xs text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-trace-300 cursor-pointer">
+              {campanas.map((c) => (
+                <option key={c.id} value={c.id}>{c.nombre}</option>
+              ))}
+            </select>
+            <ChevronDown size={12} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400" />
+          </div>
+          <div className="relative max-w-[150px]">
+            <select className="w-full appearance-none rounded-lg border border-gray-200 bg-white pl-3 pr-7 py-1.5 text-xs text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-trace-300 cursor-pointer">
+              <option value="">Todas las Parcelas</option>
+              {parcelas.map((p) => (
+                <option key={p.id} value={p.id}>{p.nombre}</option>
+              ))}
+            </select>
+            <ChevronDown size={12} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400" />
+          </div>
         </div>
       </div>
 

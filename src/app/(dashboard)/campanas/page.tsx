@@ -1,9 +1,10 @@
 "use client"
 
 import { useState } from "react"
+import { ChevronDown } from "lucide-react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { GaugeChart } from "@/components/charts/gauge-chart"
-import { ndviData, insumosAplicados, campanas } from "@/lib/mock-data"
+import { ndviData, insumosAplicados, campanas, parcelas } from "@/lib/mock-data"
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   BarChart, Bar, Legend,
@@ -31,19 +32,28 @@ export default function CampanasPage() {
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex items-center gap-2">
             <span className="hidden sm:block text-sm text-gray-500">Filtro:</span>
-            <select
-              value={selectedCampana}
-              onChange={(e) => setSelectedCampana(e.target.value)}
-              className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm focus:outline-none focus:ring-2 focus:ring-trace-500/20"
-            >
-              {campanas.map((c) => (
-                <option key={c.id} value={c.id}>{c.nombre}</option>
+            <div className="relative">
+              <select
+                value={selectedCampana}
+                onChange={(e) => setSelectedCampana(e.target.value)}
+                className="appearance-none rounded-lg border border-gray-200 bg-white pl-3 pr-7 py-1.5 text-xs text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-trace-500/20 cursor-pointer"
+              >
+                {campanas.map((c) => (
+                  <option key={c.id} value={c.id}>{c.nombre}</option>
+                ))}
+              </select>
+              <ChevronDown size={12} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400" />
+            </div>
+          </div>
+          <div className="relative max-w-[150px]">
+            <select className="w-full appearance-none rounded-lg border border-gray-200 bg-white pl-3 pr-7 py-1.5 text-xs text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-trace-500/20 cursor-pointer">
+              <option value="">Todas las Parcelas</option>
+              {parcelas.map((p) => (
+                <option key={p.id} value={p.id}>{p.nombre}</option>
               ))}
             </select>
+            <ChevronDown size={12} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400" />
           </div>
-          <select className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm focus:outline-none focus:ring-2 focus:ring-trace-500/20">
-            <option>Todas las Parcelas</option>
-          </select>
         </div>
       </div>
 
