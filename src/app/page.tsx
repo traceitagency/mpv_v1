@@ -8,7 +8,7 @@ import {
   Sprout, BarChart3, ArrowRight, CheckCircle2,
   MapPin, Leaf, Factory, QrCode, TrendingUp, Users,
   Twitter, Facebook, Instagram, Youtube, Star, Zap, Crown,
-  BookOpen, ArrowUpRight, Check, Menu, X,
+  ArrowUpRight, Check, Menu, X,
 } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -22,6 +22,8 @@ export default function LandingPage() {
   const [authOpen, setAuthOpen] = useState(false)
   const [authMode, setAuthMode] = useState<"login" | "register">("login")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [form, setForm] = useState({ nombre: "", email: "", tipo: "Demo de la plataforma", mensaje: "" })
 
   const openLogin = () => { setAuthMode("login"); setAuthOpen(true); setMobileMenuOpen(false) }
   const openRegister = () => { setAuthMode("register"); setAuthOpen(true); setMobileMenuOpen(false) }
@@ -51,6 +53,9 @@ export default function LandingPage() {
             </a>
             <a href="#blog" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
               Blog
+            </a>
+            <a href="#contacto" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+              Contacto
             </a>
           </div>
           <div className="hidden md:flex items-center gap-3">
@@ -101,6 +106,13 @@ export default function LandingPage() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Blog
+            </a>
+            <a
+              href="#contacto"
+              className="py-2.5 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Contacto
             </a>
             <div className="mt-3 pt-3 border-t flex flex-col gap-2">
               <Button variant="outline" className="w-full justify-center" onClick={openLogin}>
@@ -547,24 +559,126 @@ export default function LandingPage() {
             {[
               {
                 tag: "Trazabilidad",
+                tagBg: "bg-emerald-600",
                 title: "Cómo la trazabilidad digital está transformando el sector del aceite de oliva",
                 excerpt: "La digitalización de la cadena de valor oleícola permite a agricultores y almazaras demostrar la calidad de sus productos con datos verificables...",
                 date: "15 Feb 2026",
                 readTime: "5 min",
+                visual: (
+                  <div className="h-44 relative overflow-hidden bg-gradient-to-br from-trace-900 via-trace-800 to-emerald-700">
+                    {/* Decorative SVG — traceability chain */}
+                    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 360 176" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      {/* Background leaf shapes */}
+                      <ellipse cx="300" cy="30" rx="80" ry="50" fill="white" fillOpacity="0.04" transform="rotate(-30 300 30)" />
+                      <ellipse cx="320" cy="160" rx="70" ry="45" fill="white" fillOpacity="0.04" transform="rotate(20 320 160)" />
+                      {/* Chain nodes */}
+                      <circle cx="55" cy="88" r="22" fill="white" fillOpacity="0.10" stroke="white" strokeOpacity="0.25" strokeWidth="1.5" />
+                      <circle cx="55" cy="88" r="12" fill="white" fillOpacity="0.15" />
+                      <line x1="77" y1="88" x2="113" y2="88" stroke="white" strokeOpacity="0.3" strokeWidth="1.5" strokeDasharray="4 3" />
+                      <circle cx="135" cy="88" r="22" fill="white" fillOpacity="0.10" stroke="white" strokeOpacity="0.25" strokeWidth="1.5" />
+                      <circle cx="135" cy="88" r="12" fill="white" fillOpacity="0.15" />
+                      <line x1="157" y1="88" x2="193" y2="88" stroke="white" strokeOpacity="0.3" strokeWidth="1.5" strokeDasharray="4 3" />
+                      <circle cx="215" cy="88" r="22" fill="white" fillOpacity="0.10" stroke="white" strokeOpacity="0.25" strokeWidth="1.5" />
+                      <circle cx="215" cy="88" r="12" fill="white" fillOpacity="0.15" />
+                      <line x1="237" y1="88" x2="273" y2="88" stroke="white" strokeOpacity="0.3" strokeWidth="1.5" strokeDasharray="4 3" />
+                      <circle cx="295" cy="88" r="22" fill="white" fillOpacity="0.14" stroke="white" strokeOpacity="0.35" strokeWidth="2" />
+                      <circle cx="295" cy="88" r="12" fill="white" fillOpacity="0.22" />
+                      {/* QR-like icon in last node */}
+                      <rect x="289" y="82" width="5" height="5" rx="0.5" fill="white" fillOpacity="0.7" />
+                      <rect x="296" y="82" width="5" height="5" rx="0.5" fill="white" fillOpacity="0.7" />
+                      <rect x="289" y="89" width="5" height="5" rx="0.5" fill="white" fillOpacity="0.7" />
+                      <rect x="296" y="89" width="2" height="2" fill="white" fillOpacity="0.7" />
+                      <rect x="300" y="89" width="2" height="2" fill="white" fillOpacity="0.7" />
+                      {/* Labels under nodes */}
+                      <text x="55" y="120" textAnchor="middle" fontSize="8" fill="white" fillOpacity="0.5">Campo</text>
+                      <text x="135" y="120" textAnchor="middle" fontSize="8" fill="white" fillOpacity="0.5">Cosecha</text>
+                      <text x="215" y="120" textAnchor="middle" fontSize="8" fill="white" fillOpacity="0.5">Almazara</text>
+                      <text x="295" y="120" textAnchor="middle" fontSize="8" fill="white" fillOpacity="0.5">Botella</text>
+                      {/* Leaf accent top-right */}
+                      <path d="M345 10 C335 20 325 40 340 55 C355 40 355 20 345 10Z" fill="white" fillOpacity="0.08" />
+                      <path d="M345 10 L340 55" stroke="white" strokeOpacity="0.12" strokeWidth="1" />
+                    </svg>
+                    <div className="absolute inset-0 bg-gradient-to-t from-trace-900/70 via-transparent to-transparent" />
+                    <span className="absolute top-3 left-3 rounded-full bg-emerald-500/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-semibold text-white">Trazabilidad</span>
+                    <span className="absolute bottom-3 right-3 text-[10px] text-white/40">15 Feb 2026 · 5 min</span>
+                  </div>
+                ),
               },
               {
                 tag: "Normativa",
+                tagBg: "bg-indigo-600",
                 title: "Nueva normativa europea de cuaderno de campo digital: lo que necesitas saber",
                 excerpt: "A partir de 2027 será obligatorio el cuaderno de campo digital. Te explicamos los requisitos y cómo prepararte con tiempo...",
                 date: "8 Feb 2026",
                 readTime: "7 min",
+                visual: (
+                  <div className="h-44 relative overflow-hidden bg-gradient-to-br from-indigo-900 via-indigo-800 to-blue-700">
+                    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 360 176" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      {/* EU stars circle */}
+                      {Array.from({ length: 12 }, (_, k) => {
+                        const angle = (k * 30 - 90) * (Math.PI / 180)
+                        const cx = 80 + Math.cos(angle) * 38
+                        const cy = 88 + Math.sin(angle) * 38
+                        return <circle key={k} cx={cx} cy={cy} r="4" fill="white" fillOpacity="0.5" />
+                      })}
+                      <circle cx="80" cy="88" r="22" fill="white" fillOpacity="0.06" stroke="white" strokeOpacity="0.15" strokeWidth="1" />
+                      {/* Document shape */}
+                      <rect x="155" y="38" width="110" height="100" rx="6" fill="white" fillOpacity="0.08" stroke="white" strokeOpacity="0.2" strokeWidth="1.5" />
+                      <rect x="168" y="55" width="68" height="3.5" rx="2" fill="white" fillOpacity="0.35" />
+                      <rect x="168" y="66" width="52" height="3" rx="1.5" fill="white" fillOpacity="0.2" />
+                      <rect x="168" y="80" width="16" height="3" rx="1.5" fill="white" fillOpacity="0.2" />
+                      <rect x="188" y="80" width="36" height="3" rx="1.5" fill="white" fillOpacity="0.2" />
+                      {/* Checkmarks */}
+                      <circle cx="172" cy="99" r="6" fill="white" fillOpacity="0.15" stroke="white" strokeOpacity="0.3" strokeWidth="1" />
+                      <path d="M169 99 L171 101 L175 97" stroke="white" strokeOpacity="0.8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <rect x="182" y="96" width="40" height="3" rx="1.5" fill="white" fillOpacity="0.2" />
+                      <circle cx="172" cy="113" r="6" fill="white" fillOpacity="0.15" stroke="white" strokeOpacity="0.3" strokeWidth="1" />
+                      <path d="M169 113 L171 115 L175 111" stroke="white" strokeOpacity="0.8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <rect x="182" y="110" width="28" height="3" rx="1.5" fill="white" fillOpacity="0.2" />
+                      {/* Decorative glow */}
+                      <circle cx="310" cy="40" r="55" fill="white" fillOpacity="0.03" />
+                    </svg>
+                    <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/70 via-transparent to-transparent" />
+                    <span className="absolute top-3 left-3 rounded-full bg-indigo-500/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-semibold text-white">Normativa</span>
+                    <span className="absolute bottom-3 right-3 text-[10px] text-white/40">8 Feb 2026 · 7 min</span>
+                  </div>
+                ),
               },
               {
                 tag: "Guía práctica",
+                tagBg: "bg-amber-600",
                 title: "Optimización del rendimiento graso: 5 claves para mejorar tu producción",
-                excerpt: "Factores como el momento de cosecha, la variedad y los tratamientos aplicados determinan el rendimiento graso de tu aceituina...",
+                excerpt: "Factores como el momento de cosecha, la variedad y los tratamientos aplicados determinan el rendimiento graso de tu aceituna...",
                 date: "1 Feb 2026",
                 readTime: "4 min",
+                visual: (
+                  <div className="h-44 relative overflow-hidden bg-gradient-to-br from-amber-800 via-amber-700 to-trace-700">
+                    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 360 176" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      {/* Rising bar chart */}
+                      <rect x="60" y="120" width="28" height="30" rx="3" fill="white" fillOpacity="0.12" />
+                      <rect x="100" y="100" width="28" height="50" rx="3" fill="white" fillOpacity="0.15" />
+                      <rect x="140" y="78" width="28" height="72" rx="3" fill="white" fillOpacity="0.18" />
+                      <rect x="180" y="58" width="28" height="92" rx="3" fill="white" fillOpacity="0.22" />
+                      <rect x="220" y="38" width="28" height="112" rx="3" fill="white" fillOpacity="0.28" />
+                      {/* Trend line */}
+                      <polyline points="74,120 114,100 154,78 194,58 234,38" stroke="white" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                      {/* Dots on trend */}
+                      {[[74, 120], [114, 100], [154, 78], [194, 58], [234, 38]].map(([x, y], k) => (
+                        <circle key={k} cx={x} cy={y} r="4" fill="white" fillOpacity="0.8" />
+                      ))}
+                      {/* Oil drop on the right */}
+                      <path d="M295 55 C295 55 270 85 270 105 C270 120 281.5 132 295 132 C308.5 132 320 120 320 105 C320 85 295 55 295 55Z" fill="white" fillOpacity="0.10" stroke="white" strokeOpacity="0.2" strokeWidth="1.5" />
+                      <path d="M295 80 C295 80 280 100 280 110 C280 118 287 124 295 124 C303 124 310 118 310 110 C310 100 295 80 295 80Z" fill="white" fillOpacity="0.08" />
+                      {/* % label */}
+                      <text x="295" y="107" textAnchor="middle" fontSize="14" fontWeight="700" fill="white" fillOpacity="0.6">%</text>
+                      {/* Grid lines */}
+                      <line x1="50" y1="150" x2="260" y2="150" stroke="white" strokeOpacity="0.12" strokeWidth="1" />
+                    </svg>
+                    <div className="absolute inset-0 bg-gradient-to-t from-amber-900/70 via-transparent to-transparent" />
+                    <span className="absolute top-3 left-3 rounded-full bg-amber-500/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-semibold text-white">Guía práctica</span>
+                    <span className="absolute bottom-3 right-3 text-[10px] text-white/40">1 Feb 2026 · 4 min</span>
+                  </div>
+                ),
               },
             ].map((post, i) => (
               <motion.div
@@ -575,10 +689,7 @@ export default function LandingPage() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                {/* Image placeholder */}
-                <div className="h-40 bg-gradient-to-br from-trace-100 via-trace-50 to-green-50 flex items-center justify-center">
-                  <BookOpen size={32} className="text-trace-300" />
-                </div>
+                {post.visual}
                 <div className="p-5">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="rounded-full bg-trace-50 px-2 py-0.5 text-xs font-medium text-trace-700">{post.tag}</span>
@@ -598,19 +709,154 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-gray-50">
-        <div className="mx-auto max-w-7xl px-6 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-            Empieza a digitalizar tu explotación hoy
-          </h2>
-          <p className="text-gray-500 mb-8 max-w-xl mx-auto">
-            Únete a cientos de agricultores que ya confían en TRACE IT para certificar su calidad y optimizar su producción.
-          </p>
-          <Button size="lg" className="gap-2 text-base" onClick={openRegister}>
-            Comenzar prueba gratuita
-            <ArrowRight size={18} />
-          </Button>
+      {/* ========== CONTACTO + CTA ========== */}
+      <section id="contacto" className="py-24 scroll-mt-16 bg-gradient-to-b from-white to-gray-50/60">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+
+            {/* Left: CTA copy + info */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <span className="inline-flex items-center rounded-full bg-trace-50 px-3 py-1 text-xs font-medium text-trace-700 border border-trace-200 mb-6">
+                Contacto
+              </span>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4" style={{ fontFamily: "var(--font-display)" }}>
+                Empieza a digitalizar tu explotación hoy
+              </h2>
+              <p className="text-gray-500 mb-8 leading-relaxed">
+                Únete a cientos de agricultores que ya confían en TRACE IT. Si tienes dudas o quieres una demo
+                personalizada, escríbenos — respondemos en menos de 24 horas.
+              </p>
+
+              <ul className="space-y-3 mb-10">
+                {[
+                  "30 días de prueba gratuita, sin tarjeta de crédito",
+                  "Setup en menos de 5 minutos",
+                  "Soporte personalizado durante el onboarding",
+                ].map((b) => (
+                  <li key={b} className="flex items-center gap-2.5 text-sm text-gray-700">
+                    <CheckCircle2 size={15} className="text-trace-600 flex-shrink-0" />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Email pill */}
+              <a
+                href="mailto:traceitagency@gmail.com"
+                className="inline-flex items-center gap-3 rounded-xl border bg-white px-4 py-3 shadow-sm hover:shadow transition-shadow group"
+              >
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-trace-50 border border-trace-100 flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-trace-600">
+                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-[11px] text-gray-400">Correo electrónico</p>
+                  <p className="text-sm font-semibold text-trace-700 group-hover:underline underline-offset-2">
+                    traceitagency@gmail.com
+                  </p>
+                </div>
+              </a>
+            </motion.div>
+
+            {/* Right: Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <div className="rounded-2xl border bg-white p-8 shadow-sm">
+                {submitted ? (
+                  <div className="flex flex-col items-center justify-center py-10 text-center gap-4">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-trace-50 border border-trace-100">
+                      <CheckCircle2 size={32} className="text-trace-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-1">¡Mensaje enviado!</h3>
+                      <p className="text-sm text-gray-500">Te responderemos en menos de 24 horas en <span className="font-medium">{form.email}</span>.</p>
+                    </div>
+                    <Button variant="outline" size="sm" onClick={() => { setSubmitted(false); setForm({ nombre: "", email: "", tipo: "Demo de la plataforma", mensaje: "" }) }}>
+                      Enviar otro mensaje
+                    </Button>
+                  </div>
+                ) : (
+                  <form
+                    onSubmit={(e) => { e.preventDefault(); if (form.nombre && form.email) setSubmitted(true) }}
+                    className="space-y-4"
+                  >
+                    <div>
+                      <h3 className="text-base font-semibold text-gray-900 mb-1" style={{ fontFamily: 'var(--font-sans)' }}>Envíanos un mensaje</h3>
+                      <p className="text-xs text-gray-400">Respuesta garantizada en menos de 24 horas.</p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-medium text-gray-700 mb-1.5">Nombre <span className="text-red-400">*</span></label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="Antonio López"
+                          value={form.nombre}
+                          onChange={(e) => setForm((f) => ({ ...f, nombre: e.target.value }))}
+                          className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-trace-500/20 focus:border-trace-400 transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-gray-700 mb-1.5">Email <span className="text-red-400">*</span></label>
+                        <input
+                          type="email"
+                          required
+                          placeholder="antonio@finca.es"
+                          value={form.email}
+                          onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                          className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-trace-500/20 focus:border-trace-400 transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700 mb-1.5">Tipo de consulta</label>
+                      <select
+                        value={form.tipo}
+                        onChange={(e) => setForm((f) => ({ ...f, tipo: e.target.value }))}
+                        className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-trace-500/20 focus:border-trace-400 transition-colors bg-white"
+                      >
+                        <option>Demo de la plataforma</option>
+                        <option>Soporte técnico</option>
+                        <option>Partnership / Almazara</option>
+                        <option>Otra consulta</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700 mb-1.5">Mensaje</label>
+                      <textarea
+                        rows={4}
+                        placeholder="Cuéntanos sobre tu explotación, número de parcelas o qué funcionalidad te interesa..."
+                        value={form.mensaje}
+                        onChange={(e) => setForm((f) => ({ ...f, mensaje: e.target.value }))}
+                        className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-trace-500/20 focus:border-trace-400 transition-colors resize-none"
+                      />
+                    </div>
+
+                    <Button type="submit" className="w-full gap-2">
+                      Enviar mensaje
+                      <ArrowRight size={16} />
+                    </Button>
+                    <p className="text-center text-[11px] text-gray-400">Sin spam. Tus datos no se comparten con terceros.</p>
+                  </form>
+                )}
+              </div>
+            </motion.div>
+
+          </div>
         </div>
       </section>
 
@@ -624,6 +870,7 @@ export default function LandingPage() {
               <a href="#planes" className="text-sm text-gray-500 hover:text-gray-900">Planes</a>
               <a href="#casos" className="text-sm text-gray-500 hover:text-gray-900">Casos de Éxito</a>
               <a href="#blog" className="text-sm text-gray-500 hover:text-gray-900">Blog</a>
+              <a href="#contacto" className="text-sm text-gray-500 hover:text-gray-900">Contacto</a>
             </div>
             <div className="flex items-center gap-4">
               <a href="#" className="text-gray-400 hover:text-gray-600"><Twitter size={18} /></a>
