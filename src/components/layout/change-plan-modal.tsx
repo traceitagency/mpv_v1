@@ -233,32 +233,26 @@ export function ChangePlanModal({ isOpen, onClose, currentPlan, onChangePlan }: 
                     return (
                       <div className="space-y-5">
                         {/* Price comparison */}
-                        <div className="rounded-lg border border-gray-200 p-4">
-                          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Cambio de precio</p>
-                          <div className="flex items-center justify-between">
-                            <div className="text-center">
-                              <p className="text-xs text-gray-500 mb-1">Plan {currentPlan}</p>
-                              <p className="text-lg font-bold text-gray-400 line-through">
-                                {currentPrice === 0 ? "Gratis" : `${currentPrice} €/mes`}
+                        <div className="rounded-xl border border-gray-200 overflow-hidden">
+                          <div className="grid grid-cols-2">
+                            {/* Current plan */}
+                            <div className="p-4 bg-gray-50/70 border-r border-gray-200">
+                              <p className="text-[11px] font-medium text-gray-400 uppercase tracking-wider mb-2">Plan actual</p>
+                              <p className="text-sm font-semibold text-gray-500">{currentPlan}</p>
+                              <p className="text-2xl font-bold text-gray-400 mt-1">
+                                {currentPrice === 0 ? <span className="line-through">Gratis</span> : <><span className="line-through">{currentPrice}</span> <span className="text-sm font-normal">€/mes</span></>}
                               </p>
                             </div>
-                            <div className="text-center px-4">
-                              <span className={cn(
-                                "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold",
-                                diff > 0
-                                  ? "bg-trace-50 text-trace-700"
-                                  : diff < 0
-                                    ? "bg-amber-50 text-amber-700"
-                                    : "bg-gray-50 text-gray-500"
-                              )}>
-                                {diff > 0 ? <ArrowUp size={12} /> : diff < 0 ? <ArrowDown size={12} /> : null}
-                                {diff > 0 ? `+${diff}` : diff < 0 ? `${diff}` : "0"} €/mes
-                              </span>
-                            </div>
-                            <div className="text-center">
-                              <p className="text-xs text-gray-500 mb-1">Plan {selected}</p>
-                              <p className="text-lg font-bold text-gray-900">
-                                {newPrice === 0 ? "Gratis" : `${newPrice} €/mes`}
+
+                            {/* New plan */}
+                            <div className={cn(
+                              "p-4",
+                              isUpgrade ? "bg-trace-50/50" : "bg-amber-50/30"
+                            )}>
+                              <p className="text-[11px] font-medium text-gray-400 uppercase tracking-wider mb-2">Nuevo plan</p>
+                              <p className={cn("text-sm font-semibold", isUpgrade ? "text-trace-700" : "text-amber-700")}>{selected}</p>
+                              <p className={cn("text-2xl font-bold mt-1", isUpgrade ? "text-trace-800" : "text-amber-800")}>
+                                {newPrice === 0 ? "Gratis" : <>{newPrice} <span className="text-sm font-normal">€/mes</span></>}
                               </p>
                             </div>
                           </div>
@@ -315,6 +309,7 @@ export function ChangePlanModal({ isOpen, onClose, currentPlan, onChangePlan }: 
                         )}
 
                         {/* Warning banner */}
+                        {/*
                         <div className={cn(
                           "flex items-start gap-3 rounded-lg border p-4",
                           isUpgrade
@@ -334,6 +329,7 @@ export function ChangePlanModal({ isOpen, onClose, currentPlan, onChangePlan }: 
                             </p>
                           </div>
                         </div>
+                        */}
 
                         {/* Actions */}
                         <div className="flex items-center justify-end gap-3 pt-2">
