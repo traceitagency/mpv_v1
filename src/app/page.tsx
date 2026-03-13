@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { Logo } from "@/components/layout/logo"
 import { Button } from "@/components/ui/button"
 import { AuthModal } from "@/components/auth/auth-modal"
@@ -231,7 +232,7 @@ export default function LandingPage() {
                     <CheckCircle2 size={14} className="text-trace-600" /> Sin tarjeta de crédito
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <CheckCircle2 size={14} className="text-trace-600" /> Setup en 5 min
+                    <CheckCircle2 size={14} className="text-trace-600" /> Empieza a usarlo en minutos
                   </span>
                 </div>
               </motion.div>
@@ -569,6 +570,7 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
+                slug: "produccion-aceite-oliva-espana-2024-25",
                 tag: "Trazabilidad",
                 tagBg: "bg-emerald-600",
                 title: "Cómo la trazabilidad digital está transformando el sector del aceite de oliva",
@@ -616,6 +618,7 @@ export default function LandingPage() {
                 ),
               },
               {
+                slug: "reglamento-europeo-cuaderno-campo-digital-2024",
                 tag: "Normativa",
                 tagBg: "bg-indigo-600",
                 title: "Nueva normativa europea de cuaderno de campo digital: lo que necesitas saber",
@@ -656,6 +659,7 @@ export default function LandingPage() {
                 ),
               },
               {
+                slug: "aceite-oliva-salud-cardiovascular-predimed",
                 tag: "Guía práctica",
                 tagBg: "bg-amber-600",
                 title: "Optimización del rendimiento graso: 5 claves para mejorar tu producción",
@@ -694,26 +698,27 @@ export default function LandingPage() {
             ].map((post, i) => (
               <motion.div
                 key={i}
-                className="rounded-2xl border bg-white overflow-hidden card-hover group cursor-pointer"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                {post.visual}
-                <div className="p-5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="rounded-full bg-trace-50 px-2 py-0.5 text-xs font-medium text-trace-700">{post.tag}</span>
-                    <span className="text-xs text-gray-400">{post.date} · {post.readTime}</span>
+                <Link href={`/blog/${post.slug}`} className="block rounded-2xl border bg-white overflow-hidden card-hover group cursor-pointer">
+                  {post.visual}
+                  <div className="p-5">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="rounded-full bg-trace-50 px-2 py-0.5 text-xs font-medium text-trace-700">{post.tag}</span>
+                      <span className="text-xs text-gray-400">{post.date} · {post.readTime}</span>
+                    </div>
+                    <h3 className="text-base font-semibold text-gray-900 mb-2 group-hover:text-trace-700 transition-colors line-clamp-2">
+                      {post.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 line-clamp-2">{post.excerpt}</p>
+                    <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-trace-600">
+                      Leer más <ArrowUpRight size={14} />
+                    </span>
                   </div>
-                  <h3 className="text-base font-semibold text-gray-900 mb-2 group-hover:text-trace-700 transition-colors line-clamp-2">
-                    {post.title}
-                  </h3>
-                  <p className="text-sm text-gray-500 line-clamp-2">{post.excerpt}</p>
-                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-trace-600">
-                    Leer más <ArrowUpRight size={14} />
-                  </span>
-                </div>
+                </Link>
               </motion.div>
             ))}
           </div>
@@ -770,7 +775,7 @@ export default function LandingPage() {
                 <div>
                   <p className="text-[11px] text-gray-400">Correo electrónico</p>
                   <p className="text-sm font-semibold text-trace-700 group-hover:underline underline-offset-2">
-                    traceitagency@gmail.com
+                    info@traceit.es
                   </p>
                 </div>
               </a>
@@ -827,7 +832,7 @@ export default function LandingPage() {
                         <input
                           type="text"
                           required
-                          placeholder="Antonio López"
+                          placeholder="Nombre completo"
                           value={form.nombre}
                           onChange={(e) => setForm((f) => ({ ...f, nombre: e.target.value }))}
                           className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-trace-500/20 focus:border-trace-400 transition-colors"
@@ -838,7 +843,7 @@ export default function LandingPage() {
                         <input
                           type="email"
                           required
-                          placeholder="antonio@finca.es"
+                          placeholder="Correo electrónico"
                           value={form.email}
                           onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
                           className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-trace-500/20 focus:border-trace-400 transition-colors"

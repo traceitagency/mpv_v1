@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useSidebar } from "@/lib/sidebar-context"
 import { SupportModal } from "@/components/layout/support-modal"
+import { NotificationsModal } from "@/components/layout/notifications-modal"
 
 const notifications = [
   {
@@ -124,6 +125,7 @@ export function TopBar() {
   const [notifOpen, setNotifOpen] = useState(false)
   const [helpOpen, setHelpOpen] = useState(false)
   const [supportOpen, setSupportOpen] = useState(false)
+  const [historyOpen, setHistoryOpen] = useState(false)
   const [notifs, setNotifs] = useState(notifications)
   const panelRef = useRef<HTMLDivElement>(null)
   const helpRef = useRef<HTMLDivElement>(null)
@@ -348,7 +350,10 @@ export function TopBar() {
 
                 {/* Footer */}
                 <div className="border-t border-gray-100 px-4 py-2.5 text-center">
-                  <button className="text-xs font-medium text-trace-600 hover:text-trace-700 transition-colors">
+                  <button
+                    onClick={() => { setNotifOpen(false); setHistoryOpen(true) }}
+                    className="text-xs font-medium text-trace-600 hover:text-trace-700 transition-colors"
+                  >
                     Ver historial completo →
                   </button>
                 </div>
@@ -370,6 +375,7 @@ export function TopBar() {
       </div>
 
       <SupportModal isOpen={supportOpen} onClose={() => setSupportOpen(false)} />
+      <NotificationsModal isOpen={historyOpen} onClose={() => setHistoryOpen(false)} />
     </header>
   )
 }
