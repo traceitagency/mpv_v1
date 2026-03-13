@@ -61,18 +61,18 @@ export default function CampanasPage() {
         <div className="h-full">
           <div className="rounded-xl border bg-white p-1 h-full">
             <div className="px-4 pt-4 pb-2">
-              <h2 className="text-base font-semibold text-gray-900">Evolución y Clima (Campaña 2026)</h2>
+              <h2 className="text-lg font-semibold text-gray-900">Evolución y Clima (Campaña 2026)</h2>
             </div>
 
             {/* NDVI */}
             <Card className="border-0 shadow-none">
-              <CardHeader className="pb-1 pt-2 mb-2">
-                <CardTitle className="text-sm font-medium text-gray-700">
+              <CardHeader className="pb-1 pt-1 mb-2">
+                <CardTitle className="text-base">
                   Evolución NDVI (Últimos 10 Meses)
                 </CardTitle>
                 <div className="flex items-center gap-2 mt-1">
                   <div className="h-2.5 w-6 rounded bg-trace-500" />
-                  <span className="text-xs text-gray-500">Evolución NDVI (Últimos 10 Meses)</span>
+                  <span className="text-xs text-gray-500">Evolución NDVI</span>
                 </div>
               </CardHeader>
               <CardContent>
@@ -97,7 +97,7 @@ export default function CampanasPage() {
             {/* Lluvia */}
             <Card className="border-0 shadow-none">
               <CardHeader className="pb-1 pt-0 mb-2">
-                <CardTitle className="text-sm font-medium text-gray-700">
+                <CardTitle className="text-base">
                   Acumulado de Lluvia (mm) vs Media Histórica
                 </CardTitle>
               </CardHeader>
@@ -122,13 +122,13 @@ export default function CampanasPage() {
         <div className="h-full">
           <div className="rounded-xl border bg-white p-1 h-full">
             <div className="px-4 pt-4 pb-2">
-              <h2 className="text-base font-semibold text-gray-900">Resumen de Producción y Rendimiento</h2>
+              <h2 className="text-lg font-semibold text-gray-900">Resumen de Producción y Rendimiento</h2>
             </div>
 
             {/* Insumos */}
             <Card className="border-0 shadow-none">
               <CardHeader className="pb-1 pt-2">
-                <CardTitle className="text-sm font-medium text-gray-700">Resumen de Insumos Aplicados</CardTitle>
+                <CardTitle className="text-base">Resumen de Insumos Aplicados</CardTitle>
               </CardHeader>
               <CardContent>
                 <table className="w-full text-sm">
@@ -153,7 +153,7 @@ export default function CampanasPage() {
             {/* Gauge */}
             <Card className="border-0 shadow-none">
               <CardHeader className="pb-1 pt-2 mb-1 mt-2">
-                <CardTitle className="text-sm font-medium text-gray-700">
+                <CardTitle className="text-base">
                   Indicador de Rendimiento Estimado (Provisional)
                 </CardTitle>
               </CardHeader>

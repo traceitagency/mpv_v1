@@ -180,8 +180,8 @@ export default function ParcelasPage() {
 
           {/* Right: Timeline */}
           <Card className="flex flex-col">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base">Línea Temporal de Eventos Oleícolas</CardTitle>
+            <CardHeader className="pb-2 mb-2">
+              <CardTitle>Línea Temporal de Eventos Oleícolas</CardTitle>
             </CardHeader>
             <CardContent className="flex-1">
               <EventTimeline events={parcelaEvents} className="max-h-[500px]" />
@@ -194,7 +194,7 @@ export default function ParcelasPage() {
           {/* Health indicators */}
           <Card>
             <CardHeader className="pb-2 mb-2">
-              <CardTitle className="text-base">Indicadores de Salud (Últimos 12 Meses)</CardTitle>
+              <CardTitle>Indicadores de Salud (Últimos 12 Meses)</CardTitle>
               <div className="flex items-center gap-2 mt-1">
                 <div className="h-2.5 w-2.5 rounded-full bg-trace-500" />
                 <span className="text-xs text-gray-500">Índice Vegetativo Medio (NDVI)</span>
@@ -222,7 +222,7 @@ export default function ParcelasPage() {
           {/* Producción interanual */}
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-base">Evolución Productiva (Comparativa Interanual)</CardTitle>
+              <CardTitle>Evolución Productiva (Comparativa Interanual)</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={180}>

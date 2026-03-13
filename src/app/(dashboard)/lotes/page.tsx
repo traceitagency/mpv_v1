@@ -103,7 +103,7 @@ export default function LotesPage() {
       <div className="rounded-xl border bg-white p-5">
 
         {/* Card header */}
-        <div className="mb-6">
+        <div className="mb-4">
           <h2 className="text-lg font-semibold text-gray-900">Lote {selectedLote.id}</h2>
           <p className="text-sm text-gray-500 mt-0.5">Campaña {selectedLote.campana}</p>
         </div>
@@ -205,18 +205,18 @@ export default function LotesPage() {
             <div className="rounded-xl border border-gray-100 bg-gray-50/60 p-4 flex-1">
               <div className="grid grid-cols-2 gap-4">
                 <div className="h-[140px] lg:h-[190px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={eventosChart} margin={{ top: 14, right: 4, left: -10, bottom: -15 }}>
-                    <XAxis dataKey="tipo" tick={{ fontSize: 9 }} stroke="#d1d5db" />
-                    <Tooltip contentStyle={{ borderRadius: 8, fontSize: 11 }} />
-                    <Bar dataKey="cantidad" radius={[3, 3, 0, 0]}>
-                      <LabelList dataKey="cantidad" position="top" style={{ fontSize: 10, fill: "#374151", fontWeight: 600 }} />
-                      {eventosChart.map((_, i) => (
-                        <Cell key={i} fill={["#1c611f", "#2d8f2d", "#55b455"][i]} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={eventosChart} margin={{ top: 14, right: 4, left: -10, bottom: -15 }}>
+                      <XAxis dataKey="tipo" tick={{ fontSize: 9 }} stroke="#d1d5db" />
+                      <Tooltip contentStyle={{ borderRadius: 8, fontSize: 11 }} />
+                      <Bar dataKey="cantidad" radius={[3, 3, 0, 0]}>
+                        <LabelList dataKey="cantidad" position="top" style={{ fontSize: 10, fill: "#374151", fontWeight: 600 }} />
+                        {eventosChart.map((_, i) => (
+                          <Cell key={i} fill={["#1c611f", "#2d8f2d", "#55b455"][i]} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
                 </div>
                 <div>
                   <p className="text-[11px] font-medium text-gray-400 uppercase tracking-wide mb-2">Insumos Clave</p>

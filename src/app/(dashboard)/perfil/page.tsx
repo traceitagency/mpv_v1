@@ -10,9 +10,14 @@ import {
   User, Mail, Phone, Building2, MapPin, Calendar, Shield,
   LayoutGrid, Award, Edit3, Camera, Bell, Lock, Globe, FileText
 } from "lucide-react"
+import { EditProfileModal } from "@/components/layout/edit-profile-modal"
+import { ChangePlanModal } from "@/components/layout/change-plan-modal"
 
 export default function PerfilPage() {
   const [activeTab, setActiveTab] = useState<"general" | "seguridad" | "notificaciones">("general")
+  const [editOpen, setEditOpen] = useState(false)
+  const [planOpen, setPlanOpen] = useState(false)
+  const [profile, setProfile] = useState(userProfile)
 
   return (
     <div className="space-y-6">
@@ -40,14 +45,14 @@ export default function PerfilPage() {
           <div className="flex items-end justify-between -mt-12">
             <div className="relative flex-shrink-0">
               <div className="h-24 w-24 rounded-2xl bg-trace-600 border-4 border-white shadow-lg flex items-center justify-center text-white text-3xl font-bold">
-                {userProfile.avatar}
+                {profile.avatar}
               </div>
               <button className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-white border shadow-sm flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors">
                 <Camera size={14} />
               </button>
             </div>
             <div className="pb-2">
-              <Button variant="outline" size="sm" className="gap-2">
+              <Button variant="outline" size="sm" className="gap-2" onClick={() => setEditOpen(true)}>
                 <Edit3 size={14} /> Editar Perfil
               </Button>
             </div>
@@ -57,22 +62,22 @@ export default function PerfilPage() {
         {/* Name + info — always in white area */}
         <div className="px-6 pt-3 pb-6">
           <h2 className="text-xl font-bold text-gray-900">
-            {userProfile.nombre} {userProfile.apellidos}
+            {profile.nombre} {profile.apellidos}
           </h2>
-          <p className="text-sm text-gray-500 mt-0.5">{userProfile.empresa}</p>
+          <p className="text-sm text-gray-500 mt-0.5">{profile.empresa}</p>
           <div className="flex flex-wrap items-center gap-2 mt-2">
-            <Badge variant="default">{userProfile.rol}</Badge>
-            <Badge variant="success">Plan {userProfile.plan}</Badge>
+            <Badge variant="default">{profile.rol}</Badge>
+            <Badge variant="success">Plan {profile.plan}</Badge>
           </div>
 
           {/* Quick stats */}
           <div className="mt-4 grid grid-cols-3 gap-3">
             <div className="rounded-lg bg-gray-50 border px-3 py-2 text-center">
-              <p className="text-lg font-bold text-trace-700">{userProfile.parcelas}</p>
+              <p className="text-lg font-bold text-trace-700">{profile.parcelas}</p>
               <p className="text-xs text-gray-500">Parcelas</p>
             </div>
             <div className="rounded-lg bg-gray-50 border px-3 py-2 text-center">
-              <p className="text-lg font-bold text-trace-700">{userProfile.superficieTotal.toLocaleString('es-ES')}</p>
+              <p className="text-lg font-bold text-trace-700">{profile.superficieTotal.toLocaleString('es-ES')}</p>
               <p className="text-xs text-gray-500">Hectáreas</p>
             </div>
             <div className="rounded-lg bg-gray-50 border px-3 py-2 text-center">
@@ -116,12 +121,12 @@ export default function PerfilPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {[
-                { icon: User, label: "Nombre completo", value: `${userProfile.nombre} ${userProfile.apellidos}` },
-                { icon: Mail, label: "Correo electrónico", value: userProfile.email },
-                { icon: Phone, label: "Teléfono", value: userProfile.telefono },
-                { icon: Building2, label: "Empresa / Explotación", value: userProfile.empresa },
-                { icon: FileText, label: "CIF", value: userProfile.cif },
-                { icon: MapPin, label: "Dirección", value: userProfile.direccion },
+                { icon: User, label: "Nombre completo", value: `${profile.nombre} ${profile.apellidos}` },
+                { icon: Mail, label: "Correo electrónico", value: profile.email },
+                { icon: Phone, label: "Teléfono", value: profile.telefono },
+                { icon: Building2, label: "Empresa / Explotación", value: profile.empresa },
+                { icon: FileText, label: "CIF", value: profile.cif },
+                { icon: MapPin, label: "Dirección", value: profile.direccion },
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-50 text-gray-400 flex-shrink-0">
@@ -143,11 +148,11 @@ export default function PerfilPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {[
-                { icon: Shield, label: "Rol", value: userProfile.rol },
-                { icon: Award, label: "Plan activo", value: `Plan ${userProfile.plan}` },
-                { icon: Calendar, label: "Miembro desde", value: formatDate(userProfile.miembroDesde) },
-                { icon: LayoutGrid, label: "Parcelas registradas", value: `${userProfile.parcelas} parcelas` },
-                { icon: Globe, label: "Superficie total", value: `${userProfile.superficieTotal.toLocaleString('es-ES')} ha` },
+                { icon: Shield, label: "Rol", value: profile.rol },
+                { icon: Award, label: "Plan activo", value: `Plan ${profile.plan}` },
+                { icon: Calendar, label: "Miembro desde", value: formatDate(profile.miembroDesde) },
+                { icon: LayoutGrid, label: "Parcelas registradas", value: `${profile.parcelas} parcelas` },
+                { icon: Globe, label: "Superficie total", value: `${profile.superficieTotal.toLocaleString('es-ES')} ha` },
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-50 text-gray-400 flex-shrink-0">
@@ -160,13 +165,23 @@ export default function PerfilPage() {
                 </div>
               ))}
 
-              {/* Plan upgrade CTA */}
-              <div className="rounded-lg bg-trace-50 border border-trace-200 p-4 mt-4">
-                <p className="text-sm font-semibold text-trace-800">Plan Profesional</p>
-                <p className="text-xs text-trace-600 mt-0.5">Hasta 15 parcelas · Trazabilidad completa · Conexión almazara</p>
-                <div className="flex items-center justify-between mt-3">
+            </CardContent>
+          </Card>
+
+          {/* Plan upgrade CTA — full width */}
+          <Card className="lg:col-span-2">
+            <CardHeader>
+              <CardTitle>Plan {profile.plan}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="rounded-lg bg-trace-50 border border-trace-200 p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div>
+                  <p className="text-sm font-medium text-trace-800">Hasta 10 parcelas · Trazabilidad limitada · Conexión almazara</p>
+                  <p className="text-xs text-trace-600 mt-0.5">Gestión integral de tu explotación oleícola con certificación digital y exportación de informes.</p>
+                </div>
+                <div className="flex items-center gap-4 flex-shrink-0">
                   <span className="text-lg font-bold text-trace-700">29 €<span className="text-xs font-normal text-trace-500">/mes</span></span>
-                  <Button size="sm" variant="outline" className="text-trace-600 border-trace-300 hover:bg-trace-100">
+                  <Button size="sm" variant="outline" className="text-trace-600 border-trace-300 hover:bg-trace-100" onClick={() => setPlanOpen(true)}>
                     Cambiar Plan
                   </Button>
                 </div>
@@ -281,6 +296,18 @@ export default function PerfilPage() {
           </CardContent>
         </Card>
       )}
+      <EditProfileModal
+        isOpen={editOpen}
+        onClose={() => setEditOpen(false)}
+        profile={profile}
+        onSave={(data) => setProfile((prev) => ({ ...prev, ...data, avatar: `${data.nombre[0]}${data.apellidos[0]}`.toUpperCase() }))}
+      />
+      <ChangePlanModal
+        isOpen={planOpen}
+        onClose={() => setPlanOpen(false)}
+        currentPlan={profile.plan}
+        onChangePlan={(plan) => setProfile((prev) => ({ ...prev, plan }))}
+      />
     </div>
   )
 }

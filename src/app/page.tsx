@@ -422,7 +422,7 @@ export default function LandingPage() {
                 price: "0 €",
                 period: "/mes",
                 desc: "Para pequeños agricultores",
-                features: ["Hasta 2 parcelas", "Registro de actividades", "1 campaña activa", "Soporte por email"],
+                features: ["1 parcela", "Registro de actividades", "Trazabilidad básica", "Soporte por email"],
                 cta: "Empezar Gratis",
                 highlighted: false,
               },
@@ -432,17 +432,17 @@ export default function LandingPage() {
                 price: "29 €",
                 period: "/mes",
                 desc: "Para fincas medianas",
-                features: ["Hasta 15 parcelas", "Trazabilidad completa", "Certificados QR", "Conexión almazara", "Soporte prioritario"],
+                features: ["Hasta 10 parcelas", "Trazabilidad limitada", "Lotes con QR (limitado)", "Informes y exportación PDF", "Conexión almazara", "Soporte 24 horas"],
                 cta: "Probar 30 días Gratis",
                 highlighted: true,
               },
               {
                 icon: Crown,
                 name: "Empresa",
-                price: "89 €",
+                price: "79 €",
                 period: "/mes",
                 desc: "Para cooperativas y almazaras",
-                features: ["Parcelas ilimitadas", "Dashboard de almazara", "Ranking de agricultores", "API e integraciones", "Soporte dedicado"],
+                features: ["Parcelas ilimitadas", "Trazabilidad completa", "Lotes con QR (ilimitado)", "Informes y exportación PDF", "Dashboard de almazara", "Múltiples usuarios y roles", "API de integración", "Predicción de rendimiento IA", "Soporte prioritario", "Onboarding personalizado"],
                 cta: "Contactar Ventas",
                 highlighted: false,
               },
@@ -463,6 +463,7 @@ export default function LandingPage() {
                     Más popular
                   </span>
                 )}
+                <div className="flex flex-col h-full">
                 <div className="flex items-center gap-2 mb-3">
                   <plan.icon size={20} className={plan.highlighted ? "text-trace-600" : "text-gray-400"} />
                   <h3 className="text-lg font-semibold text-gray-900">{plan.name}</h3>
@@ -480,6 +481,7 @@ export default function LandingPage() {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-auto">
                 <Button
                   className="w-full"
                   variant={plan.highlighted ? "default" : "outline"}
@@ -487,6 +489,8 @@ export default function LandingPage() {
                 >
                   {plan.cta}
                 </Button>
+                </div>
+                </div>
               </motion.div>
             ))}
           </div>

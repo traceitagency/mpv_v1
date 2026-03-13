@@ -174,7 +174,7 @@ export default function ActividadesPage() {
               <CardTitle>Resumen de Campaña en Curso (2026)</CardTitle>
             </CardHeader>
             <CardContent>
-              <h4 className="text-sm font-medium text-gray-700 mb-3">Actividades por Tipo</h4>
+              <h4 className="text-sm font-semibold text-gray-700 mb-3">Actividades por Tipo</h4>
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={actividadesPorTipo} margin={{ top: 20, right: 10, left: 10, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />

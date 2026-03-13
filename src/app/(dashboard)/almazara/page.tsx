@@ -1,6 +1,7 @@
 "use client"
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { GaugeChart } from "@/components/charts/gauge-chart"
 import { formatNumber } from "@/lib/utils"
 import {
@@ -38,12 +39,17 @@ export default function AlmazaraPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="hidden sm:block text-sm text-gray-500">Filtro:</span>
-          <select className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm">
-            {campanas.map((c) => (
-              <option key={c.id} value={c.id}>{c.nombre}</option>
-            ))}
-          </select>
+          <span className="text-xs text-gray-500">Filtro:</span>
+          <Select defaultValue={campanas[0]?.id}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {campanas.map((c) => (
+                <SelectItem key={c.id} value={c.id}>{c.nombre}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
@@ -223,7 +229,7 @@ export default function AlmazaraPage() {
                 />
               </div>
               <div>
-                <h4 className="text-sm font-medium text-gray-700 mb-2">Recepción por Mes</h4>
+                <h4 className="text-sm font-semibold text-gray-700 mb-2">Recepción por Mes</h4>
                 <ResponsiveContainer width="100%" height={180}>
                   <BarChart data={recepcionPorMes} barGap={2} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
